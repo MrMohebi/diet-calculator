@@ -9,6 +9,10 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "engines": {
+    "node": "=20.10.0",
+    "npm": "^10.2.3"
+  },
   "dependencies": {
     "nuxt": "^3.10.3",
     "vue": "^3.4.21",
