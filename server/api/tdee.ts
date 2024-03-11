@@ -1,6 +1,5 @@
 export default defineEventHandler( async (event) => {
     const query = getQuery(event)
-    console.log(query);
     const validator =
         query.hasOwnProperty("gender") &&
         query.hasOwnProperty("age") &&
