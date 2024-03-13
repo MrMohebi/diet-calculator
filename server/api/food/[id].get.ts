@@ -25,6 +25,7 @@ export default defineEventHandler( async (event) => {
             )
             useStorage('db').setItem(id, data).then()
         }catch (e) {
+            console.log(e)
             throw createError({
                 statusCode: 404,
                 statusMessage: 'ID not founded',

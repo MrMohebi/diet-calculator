@@ -25,6 +25,7 @@
                 optionValue="fdc_id"
                 filter
                 class="w-full md:w-14rem"
+                @change="()=>onChangeFood(food.fdc_id)"
             />
             <Dropdown
                 style="width: 90px"
@@ -34,7 +35,7 @@
                 :placeholder="$t('select')"
                 optionValue="unit"
             />
-            <InputNumber input-style="max-width: 50px;" v-model="food.amount"/>
+            <InputNumber :input-style="{maxWidth: '50px'}" v-model="food.amount"/>
           </div>
 
           <div style="width: 100%;display: flex; flex-direction: row; align-items: center;">
@@ -64,6 +65,14 @@ import foods from "~/consts/foods";
 
 const {t, locale} = useI18n()
 
+const DEFAULT_FOOD = {fdc_id:-1, amount:100}
+const DEFAULT_MEAL = {mealName: t('toEdit'), foods:[DEFAULT_FOOD]}
+
+const onChangeFood = async (fcd_id) => {
+  const res = await $fetch(`/api/food/${fcd_id}`)
+  console.log(res);
+}
+
 
 const units = reactive([
   [
@@ -79,22 +88,14 @@ const meals = reactive([
   {
     mealName: t('firstMeal'),
     foods:[
-      {
-        fdc_id:-1,
-        amount:100
-      }
+      DEFAULT_FOOD
     ]
   }
 ])
 
 
 const onAddFood = (mealIndex)=>{
-  meals[mealIndex].foods.push(
-      {
-        fdc_id:-1,
-        amount:100
-      }
-  )
+  meals[mealIndex].foods.push(DEFAULT_FOOD)
 }
 
 const onRemoveFood =(mealIndex, foodIndex) => {
@@ -102,17 +103,7 @@ const onRemoveFood =(mealIndex, foodIndex) => {
     meals[mealIndex].foods.splice(foodIndex,1)
 }
 const onAddMeal = () => {
-  meals.push(
-      {
-        mealName: t('toEdit'),
-        foods:[
-          {
-            fdc_id:-1,
-            amount:100
-          }
-        ]
-      }
-  )
+  meals.push(DEFAULT_MEAL)
 }
 
 const onRemoveMeal = (index) =>{
