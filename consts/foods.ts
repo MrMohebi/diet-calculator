@@ -199,4 +199,10 @@ const x = [
         en_name: "Peanut butter",
         fa_name: "کره بادام زمینی کم نمک",
     },
+    {
+        fdc_id: 746784,
+        en_name: "Sugars",
+        fa_name: "قند",
+    },
+
 ]
