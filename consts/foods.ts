@@ -1,4 +1,4 @@
-const x = [
+export default  [
     {
         fdc_id:746771,
         name_en:"Orange",

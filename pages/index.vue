@@ -14,15 +14,43 @@
           <Button icon="pi pi-trash" severity="danger" text @click="()=>onRemoveMeal(iMeal)" style="justify-content: start; width:43px;height: 43px;"/>
         </template>
 
-        <p class="m-0">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <div v-for="(food, iFood) in meal.foods" style="display: flex; flex-direction: column; align-items: center;justify-content: center; margin-bottom: 20px">
+          <div style="display: flex; flex-direction: row; align-items: center;justify-content: center; width: 100%;; margin-bottom: 10px">
+            <Dropdown
+                style="width: 100%"
+                v-model="food.fdc_id"
+                :options="foods"
+                :optionLabel="`name_${locale}`"
+                :placeholder="$t('select')"
+                optionValue="fdc_id"
+                filter
+                class="w-full md:w-14rem"
+            />
+            <Dropdown
+                style="width: 90px"
+                v-model="units[0][0].unit"
+                :options="units[0]"
+                :optionLabel="`name_${locale}`"
+                :placeholder="$t('select')"
+                optionValue="unit"
+            />
+            <InputNumber input-style="max-width: 50px;" v-model="food.amount"/>
+          </div>
+
+          <div style="width: 100%;display: flex; flex-direction: row; align-items: center;">
+            <InlineMessage style="width: 100%" severity="secondary">sdfsdf</InlineMessage>
+            <Button icon="pi pi-trash" severity="danger" text @click="()=>onRemoveFood(iMeal, iFood)" style="justify-content: start; width:20px;height: 25px; margin: 0 10px"/>
+          </div>
+          <Divider />
+        </div>
+
+        <Button icon="pi pi-plus" rounded style="margin-left: auto;margin-right: auto;" @click="()=>onAddFood(iMeal)"/>
+
       </Fieldset>
     </template>
 
 
-    <Button icon="pi pi-plus" rounded style="margin: 10px" @click="onAddMeal"/>
+    <Button icon="pi pi-plus" severity="help" rounded style="margin: 10px;" @click="onAddMeal"/>
 
 
   </div>
@@ -32,21 +60,57 @@
 import Fieldset from 'primevue/fieldset';
 import Inplace from 'primevue/inplace';
 import Button from 'primevue/button';
+import foods from "~/consts/foods";
 
-const {t} = useI18n()
+const {t, locale} = useI18n()
+
+
+const units = reactive([
+  [
+    {
+      unit:"g",
+      name_fa:"گرم",
+      name_en:"gram"
+    }
+  ]
+])
 
 const meals = reactive([
   {
     mealName: t('firstMeal'),
-
+    foods:[
+      {
+        fdc_id:-1,
+        amount:100
+      }
+    ]
   }
 ])
 
+
+const onAddFood = (mealIndex)=>{
+  meals[mealIndex].foods.push(
+      {
+        fdc_id:-1,
+        amount:100
+      }
+  )
+}
+
+const onRemoveFood =(mealIndex, foodIndex) => {
+  if(meals[mealIndex].foods.length > 1)
+    meals[mealIndex].foods.splice(foodIndex,1)
+}
 const onAddMeal = () => {
-  console.log(meals);
   meals.push(
       {
-        mealName: t('toEdit')
+        mealName: t('toEdit'),
+        foods:[
+          {
+            fdc_id:-1,
+            amount:100
+          }
+        ]
       }
   )
 }
@@ -59,6 +123,10 @@ const onRemoveMeal = (index) =>{
 </script>
 
 <style scoped lang="scss">
+:deep(.p-dropdown-filter){
+  transform: translate(-30px, 0);
+  background: red;
+}
 :deep(.p-inplace-content){
   .p-button-icon-only{
     justify-content: start;
@@ -70,5 +138,11 @@ const onRemoveMeal = (index) =>{
   padding:4px;
   margin-right: 4px;
   margin-left: 4px;
+}
+:deep(.p-inline-message){
+  padding: 2px 4px;
+  .p-inline-message-text{
+    font-size: 12px
+  }
 }
 </style>

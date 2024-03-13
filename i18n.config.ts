@@ -7,7 +7,9 @@ export default defineI18nConfig(() => ({
         },
         fa: {
             toEdit: 'ویرایش کنید',
-            firstMeal: "وعده اول"
+            firstMeal: "وعده اول",
+            select: "انتخاب کنید",
+            gram: "گرم",
         }
     }
 }))
