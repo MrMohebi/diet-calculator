@@ -1,0 +1,29 @@
+@import "fonts";
+
+* :not(.no-transition) {
+  transition: background-color 0.3s linear;
+}
+
+body {
+  font-family: IranSans, serif !important;
+  --font-family: IranSans, serif !important;
+  direction: rtl;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  user-select: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+

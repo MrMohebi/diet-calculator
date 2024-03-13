@@ -15,11 +15,14 @@
   },
   "dependencies": {
     "nuxt": "^3.10.3",
+    "primeicons": "^6.0.1",
     "primevue": "^3.49.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "nuxt-primevue": "^0.3.1"
+    "@nuxtjs/i18n": "^8.1.1",
+    "nuxt-primevue": "^0.3.1",
+    "sass": "^1.71.1"
   }
 }
