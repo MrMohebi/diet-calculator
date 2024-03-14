@@ -10,6 +10,12 @@ export default defineI18nConfig(() => ({
             firstMeal: "وعده اول",
             select: "انتخاب کنید",
             gram: "گرم",
+            portion:"پروتئین",
+            energy:"انرژی",
+            carbohydrate:"کربوهیدرات",
+            sugar:"قند",
+            fiber:"فیبر",
+            unknown:"نامشخص",
         }
     }
 }))

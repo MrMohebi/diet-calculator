@@ -1,4 +1,4 @@
-import type {IFcdRes} from "~/inteface/fdcRes";
+
 
 export default defineEventHandler( async (event) => {
     const config = useRuntimeConfig(event)
@@ -7,13 +7,14 @@ export default defineEventHandler( async (event) => {
     const neededData = [
         203, // Protein
         208, // Energy
+        957, // Energy (Atwater General Factors)
         205, // Carbohydrate, by difference
         269.3, // Sugars, Total
         291, // Fiber, total dietary
     ]
 
 
-    let data = await useStorage('db').getItem(id) as null | IFcdRes
+    let data = await useStorage('db').getItem(id)
     if(!data){
         try {
             data = await  $fetch(

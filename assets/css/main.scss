@@ -37,3 +37,19 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
+
+.center-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
