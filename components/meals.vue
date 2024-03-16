@@ -223,9 +223,6 @@ const {
   }
 }
 
-.space-y-2 > *{
-  margin-right: 0.25rem;
-}
 
 :deep(.p-datatable-thead > tr > th){
   padding: 2px 4px;

@@ -8,6 +8,7 @@ export default defineI18nConfig(() => ({
         fa: {
             toEdit: 'ویرایش کنید',
             firstMeal: "وعده اول",
+            meal: "وعده",
             select: "انتخاب کنید",
             gram: "گرم",
             portion:"پروتئین",
@@ -15,6 +16,7 @@ export default defineI18nConfig(() => ({
             carbohydrate:"کربوهیدرات",
             sugar:"قند",
             fiber:"فیبر",
+            total:"مجموع",
             mealNutrients:"مواد مغذی در این وعده",
             unknown:"نامشخص",
         }

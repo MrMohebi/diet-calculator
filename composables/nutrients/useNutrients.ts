@@ -8,7 +8,7 @@ export const useNutrients = () => {
     const {meals} = storeToRefs(useNutrientsStore())
 
     const DEFAULT_FOOD:IFood = {fdc_id:-1, amount:100, nutrientsInPortion:{fiber: -1, portion: -1, sugar: -1, carbohydrate: -1, energy: -1}}
-    const DEFAULT_MEAL:IMeal = {mealName: t('toEdit'), foods:[structuredClone(DEFAULT_FOOD)]}
+    const DEFAULT_MEAL:IMeal = {mealName: t('meal'), foods:[structuredClone(DEFAULT_FOOD)]}
 
 
     const units = reactive([
@@ -33,7 +33,9 @@ export const useNutrients = () => {
             meals.value[mealIndex].foods.splice(foodIndex,1)
     }
     const onAddMeal = () => {
-        meals.value.push(DEFAULT_MEAL)
+        const newMeal = structuredClone(DEFAULT_MEAL)
+        newMeal.mealName += " " + (meals.value.length+1)
+        meals.value.push(newMeal)
     }
 
     const onRemoveMeal = (index:number) =>{
@@ -106,8 +108,29 @@ export const useNutrients = () => {
         return [result]
     }
 
+    const totalNutrients = computed(():INutrientsInPortion=>{
+        const result:INutrientsInPortion = {fiber:-1, portion:-1, sugar:-1, energy:-1, carbohydrate:-1,}
+        meals.value.forEach(meal=>{
+            const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
+            Object.keys(mealNutrients).forEach(key=>{
+                // @ts-ignore
+                if(mealNutrients[key]>=0){
+                    // @ts-ignore
+                    if(result[key] < 0){
+                        // @ts-ignore
+                        result[key] = 0
+                    }
+                    // @ts-ignore
+                    result[key] += mealNutrients[key]
+                }
+            })
+        })
+        return result
+    })
+
 
     return{
+        totalNutrients,
         isLoadingFoodData,
         calculateFoodNutrients,
         onChangeFood,
