@@ -101,7 +101,7 @@
         <div class="center-content" style=";margin-left: auto;margin-right: auto; width:100%; transform: translate(0, -20px);">
           <Button icon="pi pi-plus" rounded style="" @click="()=>onAddFood(iMeal)"/>
         </div>
-        <div >
+        <div v-if="Object.values(calculateMaleNutrients(meal.foods,units[0][0].gram)[0]).reduce((a, b) => a + b, 0) > 0">
           <div style="font-size:12px;margin-bottom:10px">{{$t('mealNutrients')}}:</div>
           <DataTable :loading="false" :value="calculateMaleNutrients(meal.foods,units[0][0].gram)" style="width:100%;">
             <Column field="energy" :header="$t('energy')">
