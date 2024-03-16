@@ -3,6 +3,7 @@ import {dirname, join} from "path";
 import {fileURLToPath} from "url";
 
 const currentDir = dirname(fileURLToPath(import.meta.url))
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
@@ -24,10 +25,19 @@ export default defineNuxtConfig({
     'primeicons/primeicons.css',
     join(currentDir, './assets/css/main.scss'),
   ],
+  // @ts-ignore
   storage: {
     db: {
       driver: 'fs',
       base: './.data/db'
+    }
+  },
+  typescript: {
+    typeCheck: true,
+    tsConfig:{
+      compilerOptions:{
+        noImplicitAny: false,
+      }
     }
   }
 })

@@ -1,11 +1,11 @@
-import {IFcdRes} from "~/inteface/fdcRes";
-import {INutrientsStore, useNutrientsStore} from "~/composables/nutrients/nutrients.store";
-import type {IFood, IMeal} from "~/composables/nutrients/nutrients.interface";
+import {type IFcdRes} from "~/inteface/fdcRes";
+import { useNutrientsStore} from "~/composables/nutrients/nutrients.store";
+import type {IFood, IMeal, INutrientsInPortion} from "~/composables/nutrients/nutrients.interface";
 
 
 export const useNutrients = () => {
     const {t, locale} = useI18n()
-    const {meals} = storeToRefs<INutrientsStore>(useNutrientsStore())
+    const {meals} = storeToRefs(useNutrientsStore())
 
     const DEFAULT_FOOD:IFood = {fdc_id:-1, amount:100, nutrientsInPortion:{fiber: -1, portion: -1, sugar: -1, carbohydrate: -1, energy: -1}}
     const DEFAULT_MEAL:IMeal = {mealName: t('toEdit'), foods:[structuredClone(DEFAULT_FOOD)]}
@@ -24,11 +24,11 @@ export const useNutrients = () => {
 
     const isLoadingFoodData = reactive({})
 
-    const onAddFood = (mealIndex)=>{
+    const onAddFood = (mealIndex:number)=>{
         meals.value[mealIndex].foods.push(structuredClone(DEFAULT_FOOD))
     }
 
-    const onRemoveFood =(mealIndex, foodIndex) => {
+    const onRemoveFood =(mealIndex:number, foodIndex:number) => {
         if(meals.value[mealIndex].foods.length > 1)
             meals.value[mealIndex].foods.splice(foodIndex,1)
     }
@@ -36,26 +36,27 @@ export const useNutrients = () => {
         meals.value.push(DEFAULT_MEAL)
     }
 
-    const onRemoveMeal = (index) =>{
+    const onRemoveMeal = (index:number) =>{
         if(meals.value.length > 1)
             meals.value.splice(index,1)
     }
 
-    const fcdAdaptor = (fcdRes:IFcdRes) =>{
+    const fcdAdaptor = (fcdRes:IFcdRes):INutrientsInPortion =>{
         let energy =
-            fcdRes.foodNutrients.find(i=>i.number==208)?.amount ??
-            fcdRes.foodNutrients.find(i=>i.number==957)?.amount
+            fcdRes.foodNutrients.find(i=>i.number==(208).toString())?.amount ??
+            fcdRes.foodNutrients.find(i=>i.number==(957).toString())?.amount ??
+            -1
 
         return {
-            portion:fcdRes.foodNutrients.find(i=>i.number==203)?.amount??-1,
+            portion:fcdRes.foodNutrients.find(i=>i.number==(203).toString())?.amount??-1,
             energy: energy,
-            carbohydrate:fcdRes.foodNutrients.find(i=>i.number==205)?.amount??-1,
-            sugar:fcdRes.foodNutrients.find(i=>i.number==269.3)?.amount??-1,
-            fiber:fcdRes.foodNutrients.find(i=>i.number==291)?.amount??-1,
+            carbohydrate:fcdRes.foodNutrients.find(i=>i.number==(205).toString())?.amount??-1,
+            sugar:fcdRes.foodNutrients.find(i=>i.number==(269.3).toString())?.amount??-1,
+            fiber:fcdRes.foodNutrients.find(i=>i.number==(291).toString())?.amount??-1,
         }
     }
 
-    const onChangeFood = async (fcd_id, indexMeal, indexFood) => {
+    const onChangeFood = async (fcd_id:number, indexMeal:number, indexFood:number) => {
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = true
 
         const res = await $fetch<IFcdRes>(`/api/food/${fcd_id}`)
@@ -64,7 +65,7 @@ export const useNutrients = () => {
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = false
     }
 
-    const calculateFoodNutrients = (food, unitGram)=>{
+    const calculateFoodNutrients = (food:IFood, unitGram:number)=>{
         return [
             {
                 fiber:Math.round((food.amount/unitGram)*food.nutrientsInPortion.fiber),
@@ -76,7 +77,7 @@ export const useNutrients = () => {
         ]
     }
 
-    const calculateMaleNutrients = (mealFoods,unitGram) =>{
+    const calculateMaleNutrients = (mealFoods:IFood[],unitGram:number) =>{
         const result = {
             fiber:-1,
             portion:-1,
