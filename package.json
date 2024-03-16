@@ -9,9 +9,6 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
-  "overrides": {
-    "vue": "latest"
-  },
   "engines": {
     "node": "=20.10.0",
     "npm": "^10.2.3"
@@ -22,6 +19,7 @@
     "pinia": "^2.1.7",
     "primeicons": "^6.0.1",
     "primevue": "^3.49.1",
+    "ua-parser-js": "^1.0.37",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
