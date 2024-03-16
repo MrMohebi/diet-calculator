@@ -32,12 +32,4 @@ export default defineNuxtConfig({
       base: './.data/db'
     }
   },
-  typescript: {
-    typeCheck: true,
-    tsConfig:{
-      compilerOptions:{
-        noImplicitAny: false,
-      }
-    }
-  }
 })

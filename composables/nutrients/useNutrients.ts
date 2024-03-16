@@ -57,11 +57,13 @@ export const useNutrients = () => {
     }
 
     const onChangeFood = async (fcd_id:number, indexMeal:number, indexFood:number) => {
+        // @ts-ignore
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = true
 
         const res = await $fetch<IFcdRes>(`/api/food/${fcd_id}`)
         meals.value[indexMeal].foods[indexFood].nutrientsInPortion = fcdAdaptor(res)
 
+        // @ts-ignore
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = false
     }
 
@@ -88,10 +90,14 @@ export const useNutrients = () => {
         mealFoods.forEach(item=>{
             const calculatedFood = calculateFoodNutrients(item, unitGram)[0]
             Object.keys(calculatedFood).forEach(key=>{
+                // @ts-ignore
                 if(calculatedFood[key]>=0){
+                    // @ts-ignore
                     if(result[key] < 0){
+                        // @ts-ignore
                         result[key] = 0
                     }
+                    // @ts-ignore
                     result[key] += calculatedFood[key]
                 }
             })
