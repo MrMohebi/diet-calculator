@@ -35,78 +35,127 @@
                 :placeholder="$t('select')"
                 optionValue="unit"
             />
-            <InputNumber :input-style="{maxWidth: '50px'}" v-model="food.amount"/>
+            <InputNumber :input-style="{maxWidth: '50px'}" v-model="food.amount" :min="0"/>
           </div>
 
           <div style="width: 100%;display: flex; flex-direction: row; align-items: center;">
             <InlineMessage style="width: 100%" severity="secondary">
-              <DataTable scrollable :value="calculateFoodNutrients(food,units[0][0].gram)" style="width:100%;">
-                <Column field="energy" :header="$t('energy')"></Column>
-                <Column field="portion" :header="$t('portion')"></Column>
-                <Column field="carbohydrate" :header="$t('carbohydrate')"></Column>
-                <Column field="sugar" :header="$t('sugar')"></Column>
-                <Column field="fiber" :header="$t('fiber')"></Column>
+              <DataTable :loading="isLoadingFoodData[iMeal.toString()+iFood.toString()] ?? false" :value="calculateFoodNutrients(food,units[0][0].gram)" style="width:100%;">
+                <Column field="energy" :header="$t('energy')">
+                  <template #body="{data,field}" >
+                    <template v-if="data[field]<0">
+                      <span>{{$t('unknown')}}</span>
+                    </template>
+                    <template  v-else>
+                      <span>{{numberWithCommas(data[field])}}</span><span>Kcl</span>
+                    </template>
+                  </template>
+                </Column>
+                <Column field="portion" :header="$t('portion')">
+                  <template #body="{data,field}" >
+                    <template v-if="data[field]<0">
+                      <span>{{$t('unknown')}}</span>
+                    </template>
+                    <template  v-else>
+                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                    </template>
+                  </template>
+                </Column>
+                <Column field="carbohydrate" :header="$t('carbohydrate')">
+                  <template #body="{data,field}" >
+                    <template v-if="data[field]<0">
+                      <span>{{$t('unknown')}}</span>
+                    </template>
+                    <template  v-else>
+                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                    </template>
+                  </template>
+                </Column>
+                <Column field="sugar" :header="$t('sugar')">
+                  <template #body="{data,field}" >
+                    <template v-if="data[field]<0">
+                      <span>{{$t('unknown')}}</span>
+                    </template>
+                    <template  v-else>
+                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                    </template>
+                  </template>
+                </Column>
+                <Column field="fiber" :header="$t('fiber')">
+                  <template #body="{data,field}" >
+                    <template v-if="data[field]<0">
+                      <span>{{$t('unknown')}}</span>
+                    </template>
+                    <template  v-else>
+                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                    </template>
+                  </template>
+                </Column>
               </DataTable>
-
-<!--              <div class="row" style="flex-wrap: wrap;">-->
-<!--                <div class="space-y-2 row">-->
-<!--                  <span>{{$t('energy')}}:</span>-->
-<!--                  <template v-if="food.nutrientsInPortion.energy>0">-->
-<!--                    <span>{{((units[0][0].gram/food.amount)*food.nutrientsInPortion.energy)}}</span>-->
-<!--                    <span>Kcl</span>-->
-<!--                  </template>-->
-<!--                  <template v-else>-->
-<!--                    <span>{{$t('unknown')}}</span>-->
-<!--                  </template>-->
-<!--                </div>-->
-<!--                <div class="space-y-2 row">-->
-<!--                  <span>{{$t('portion')}}:</span>-->
-<!--                  <template v-if="food.nutrientsInPortion.portion>0">-->
-<!--                    <span>{{((units[0][0].gram/food.amount)*food.nutrientsInPortion.portion)}}</span>-->
-<!--                    <span>g</span>-->
-<!--                  </template>-->
-<!--                  <template v-else>-->
-<!--                    <span>{{$t('unknown')}}</span>-->
-<!--                  </template>-->
-<!--                </div>-->
-<!--                <div class="space-y-2 row">-->
-<!--                  <span>{{$t('carbohydrate')}}:</span>-->
-<!--                  <template v-if="food.nutrientsInPortion.carbohydrate>0">-->
-<!--                    <span>{{((units[0][0].gram/food.amount)*food.nutrientsInPortion.carbohydrate)}}</span>-->
-<!--                    <span>g</span>-->
-<!--                  </template>-->
-<!--                  <template v-else>-->
-<!--                    <span>{{$t('unknown')}}</span>-->
-<!--                  </template>-->
-<!--                </div>-->
-<!--                <div class="space-y-2 row">-->
-<!--                  <span>{{$t('sugar')}}:</span>-->
-<!--                  <template v-if="food.nutrientsInPortion.sugar>0">-->
-<!--                    <span>{{((units[0][0].gram/food.amount)*food.nutrientsInPortion.sugar)}}</span>-->
-<!--                    <span>g</span>-->
-<!--                  </template>-->
-<!--                  <template v-else>-->
-<!--                    <span>{{$t('unknown')}}</span>-->
-<!--                  </template>-->
-<!--                </div>-->
-<!--                <div class="space-y-2 row">-->
-<!--                  <span>{{$t('fiber')}}:</span>-->
-<!--                  <template v-if="food.nutrientsInPortion.fiber>0">-->
-<!--                    <span>{{((units[0][0].gram/food.amount)*food.nutrientsInPortion.fiber)}}</span>-->
-<!--                    <span>g</span>-->
-<!--                  </template>-->
-<!--                  <template v-else>-->
-<!--                    <span>{{$t('unknown')}}</span>-->
-<!--                  </template>-->
-<!--                </div>-->
-<!--              </div>-->
             </InlineMessage>
             <Button icon="pi pi-trash" severity="danger" text @click="()=>onRemoveFood(iMeal, iFood)" style="justify-content: start; width:20px;height: 25px; margin: 0 10px"/>
           </div>
           <Divider />
         </div>
 
-        <Button icon="pi pi-plus" rounded style="margin-left: auto;margin-right: auto;" @click="()=>onAddFood(iMeal)"/>
+        <div class="center-content" style=";margin-left: auto;margin-right: auto; width:100%; transform: translate(0, -20px);">
+          <Button icon="pi pi-plus" rounded style="" @click="()=>onAddFood(iMeal)"/>
+        </div>
+        <div >
+          <div style="font-size:12px;margin-bottom:10px">{{$t('mealNutrients')}}:</div>
+          <DataTable :loading="false" :value="calculateMaleNutrients(meal.foods,units[0][0].gram)" style="width:100%;">
+            <Column field="energy" :header="$t('energy')">
+              <template #body="{data,field}" >
+                <template v-if="data[field]<0">
+                  <span>{{$t('unknown')}}</span>
+                </template>
+                <template  v-else>
+                  <span>{{numberWithCommas(data[field])}}</span><span>Kcl</span>
+                </template>
+              </template>
+            </Column>
+            <Column field="portion" :header="$t('portion')">
+              <template #body="{data,field}" >
+                <template v-if="data[field]<0">
+                  <span>{{$t('unknown')}}</span>
+                </template>
+                <template  v-else>
+                  <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                </template>
+              </template>
+            </Column>
+            <Column field="carbohydrate" :header="$t('carbohydrate')">
+              <template #body="{data,field}" >
+                <template v-if="data[field]<0">
+                  <span>{{$t('unknown')}}</span>
+                </template>
+                <template  v-else>
+                  <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                </template>
+              </template>
+            </Column>
+            <Column field="sugar" :header="$t('sugar')">
+              <template #body="{data,field}" >
+                <template v-if="data[field]<0">
+                  <span>{{$t('unknown')}}</span>
+                </template>
+                <template  v-else>
+                  <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                </template>
+              </template>
+            </Column>
+            <Column field="fiber" :header="$t('fiber')">
+              <template #body="{data,field}" >
+                <template v-if="data[field]<0">
+                  <span>{{$t('unknown')}}</span>
+                </template>
+                <template  v-else>
+                  <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                </template>
+              </template>
+            </Column>
+          </DataTable>
+        </div>
 
       </Fieldset>
     </template>
@@ -124,27 +173,55 @@ import Inplace from 'primevue/inplace';
 import Button from 'primevue/button';
 import foods from "~/consts/foods";
 import type {IFcdRes} from "~/inteface/fdcRes";
+import numberWithCommas from "~/utils/numberWithCommas";
 
 const {t, locale} = useI18n()
 
 const DEFAULT_FOOD = {fdc_id:-1, amount:100, nutrientsInPortion:{fiber: -1, portion: -1, sugar: -1, carbohydrate: -1, energy: -1}}
-const DEFAULT_MEAL = {mealName: t('toEdit'), foods:[DEFAULT_FOOD]}
+const DEFAULT_MEAL = {mealName: t('toEdit'), foods:[structuredClone(DEFAULT_FOOD)]}
+
+const isLoadingFoodData = reactive({})
 
 const onChangeFood = async (fcd_id, indexMeal, indexFood) => {
+  isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = true
+
   const res = await $fetch<IFcdRes>(`/api/food/${fcd_id}`)
-  console.log(res);
-  console.log(fcdAdaptor(res))
   meals[indexMeal].foods[indexFood].nutrientsInPortion = fcdAdaptor(res)
+
+  isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = false
+}
+
+const calculateMaleNutrients = (mealFoods,unitGram) =>{
+  const result = {
+    fiber:-1,
+    portion:-1,
+    sugar:-1,
+    energy:-1,
+    carbohydrate:-1,
+  }
+  mealFoods.forEach(item=>{
+    const calculatedFood = calculateFoodNutrients(item, unitGram)[0]
+    Object.keys(calculatedFood).forEach(key=>{
+      if(calculatedFood[key]>=0){
+        if(result[key] < 0){
+          result[key] = 0
+        }
+        result[key] += calculatedFood[key]
+      }
+    })
+
+  })
+  return [result]
 }
 
 const calculateFoodNutrients = (food, unitGram)=>{
   return [
     {
-      fiber:(unitGram/food.amount)*food.nutrientsInPortion.fiber + "g",
-      portion:(unitGram/food.amount)*food.nutrientsInPortion.portion + "g",
-      sugar:(unitGram/food.amount)*food.nutrientsInPortion.sugar + "g",
-      energy:(unitGram/food.amount)*food.nutrientsInPortion.energy + "Kcl",
-      carbohydrate:(unitGram/food.amount)*food.nutrientsInPortion.carbohydrate + "g",
+      fiber:Math.round((food.amount/unitGram)*food.nutrientsInPortion.fiber),
+      portion:Math.round((food.amount/unitGram)*food.nutrientsInPortion.portion),
+      sugar:Math.round((food.amount/unitGram)*food.nutrientsInPortion.sugar),
+      energy:Math.round((food.amount/unitGram)*food.nutrientsInPortion.energy),
+      carbohydrate:Math.round((food.amount/unitGram)*food.nutrientsInPortion.carbohydrate),
     }
   ]
 }
@@ -178,14 +255,14 @@ const meals = reactive([
   {
     mealName: t('firstMeal'),
     foods:[
-      DEFAULT_FOOD
+      structuredClone(DEFAULT_FOOD)
     ]
   }
 ])
 
 
 const onAddFood = (mealIndex)=>{
-  meals[mealIndex].foods.push(DEFAULT_FOOD)
+  meals[mealIndex].foods.push(structuredClone(DEFAULT_FOOD))
 }
 
 const onRemoveFood =(mealIndex, foodIndex) => {

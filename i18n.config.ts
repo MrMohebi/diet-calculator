@@ -15,6 +15,7 @@ export default defineI18nConfig(() => ({
             carbohydrate:"کربوهیدرات",
             sugar:"قند",
             fiber:"فیبر",
+            mealNutrients:"مواد مغذی در این وعده",
             unknown:"نامشخص",
         }
     }
