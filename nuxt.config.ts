@@ -10,7 +10,8 @@ export default defineNuxtConfig({
   },
   modules: [
     'nuxt-primevue',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@pinia/nuxt',
   ],
   primevue: {
     /* Options */

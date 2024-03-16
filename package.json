@@ -9,12 +9,17 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "overrides": {
+    "vue": "latest"
+  },
   "engines": {
     "node": "=20.10.0",
     "npm": "^10.2.3"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "nuxt": "^3.10.3",
+    "pinia": "^2.1.7",
     "primeicons": "^6.0.1",
     "primevue": "^3.49.1",
     "vue": "^3.4.21",
