@@ -8,7 +8,7 @@
               {{ meal.mealName || $t('toEdit') }}
             </template>
             <template #content>
-              <InputText v-model="meal.mealName" autofocus style="max-width:200px"/>
+              <InputText v-model="meal.mealName" autofocus style="max-width:110px"/>
             </template>
           </Inplace>
           <Button icon="pi pi-trash" severity="danger" text @click="()=>onRemoveMeal(iMeal)" style="justify-content: start; width:43px;height: 43px;"/>

@@ -24,10 +24,12 @@ const model = computed({
 
 <style scoped lang="scss">
 .bottom-shit{
-  width:100%;
-  padding: 5px 0 5px 15px;
+  width:100vw;
+  padding: 5px 15px 5px 15px;
   position: fixed;
   bottom: 0;
+  left: 0;
   background: white;
+  z-index: 999
 }
 </style>

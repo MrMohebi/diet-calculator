@@ -3,7 +3,19 @@ export default defineI18nConfig(() => ({
     locale: 'fa',
     messages: {
         en: {
-            toEdit: 'Welcome'
+            toEdit: 'edit',
+            firstMeal: "First Meal",
+            meal: "Meal",
+            select: "select",
+            gram: "gram",
+            portion:"Portion",
+            energy:"Energy",
+            carbohydrate:"Carbohydrate",
+            sugar:"Sugar",
+            fiber:"Fiber",
+            total:"Total",
+            mealNutrients:"Meal Nutrients",
+            unknown:"unknown",
         },
         fa: {
             toEdit: 'ویرایش کنید',
