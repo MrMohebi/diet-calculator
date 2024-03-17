@@ -6,3 +6,13 @@ services:
     restart: unless-stopped
     ports:
       - "3005:3005"
+#    environment:
+#      - VIRTUAL_HOST=dc.mmmohebi.ir
+#      - VIRTUAL_PORT=3005
+#    networks:
+#      - nproxy
+#
+#networks:
+#  nproxy:
+#    external: true
+#    name: nginx-proxy-net
