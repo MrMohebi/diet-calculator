@@ -20,6 +20,12 @@ export default defineNuxtConfig({
   },
   i18n: {
     // Module Options
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'dc-lang',
+      redirectOn: 'root',
+      fallbackLocale: 'fa'
+    },
   },
   css: [
     'primevue/resources/themes/aura-light-green/theme.css',

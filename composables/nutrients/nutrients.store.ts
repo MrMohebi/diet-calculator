@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import type {IMeal} from "~/composables/nutrients/nutrients.interface";
+import {MEALS_LS} from "~/consts/keys";
 
 export interface INutrientsStore {
     meals:IMeal[]
@@ -27,5 +28,20 @@ export const useNutrientsStore = defineStore("nutrients", {
         ]
     }),
     getters: {},
-    actions: {},
+    actions: {
+        loadFromLS(){
+            if(typeof localStorage != "undefined"){
+                const savedData = localStorage.getItem(MEALS_LS)
+                if(!savedData || savedData.length <= 0){
+                    return
+                }
+                const savedDataParsed:INutrientsStore = JSON.parse(savedData)
+                if(!(savedDataParsed?.meals.length > 0)){
+                    return
+                }
+
+                this.meals = structuredClone(savedDataParsed.meals)
+            }
+        }
+    },
 });

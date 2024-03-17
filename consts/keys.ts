@@ -1,0 +1,1 @@
+export const MEALS_LS = "dc"
