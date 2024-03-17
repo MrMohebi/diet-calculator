@@ -1,3 +1,5 @@
+# docker build -t mmmohebi/diet-calculator  . && docker push mmmohebi/diet-calculator
+
 FROM node:20.10.0 AS builder
 WORKDIR /npm
 COPY . .
