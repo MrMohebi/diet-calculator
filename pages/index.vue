@@ -1,9 +1,17 @@
 <template>
   <div class="row">
-    <Fieldset :legend="`${$t('total')}:`" style="width:100%; padding:0 20px; margin: 14px 0 0 0">
+    <component
+      :is="$isMobile? bottomShit : Fieldset"
+      v-model="isOpen"
+      :legend="`${$t('total')}:`"
+      :class="{'desktop-total-container': !$isMobile}"
+      >
       <sum-nutrients />
-    </Fieldset>
+    </component>
+
+
     <meals :style="{width:$isMobile? '100%': '100%', padding:'0 20px'}"/>
+
   </div>
 </template>
 
@@ -11,10 +19,18 @@
 import Meals from "~/components/meals.vue"
 import SumNutrients from "~/components/sumNutrients.vue";
 
+const bottomShit = resolveComponent('bottom-shit')
+const Fieldset = resolveComponent('Fieldset')
+
 const { $isMobile } = useNuxtApp()
+const isOpen = ref(false)
 
 </script>
 
 <style scoped lang="scss">
-
+.desktop-total-container{
+  width:100%;
+  padding:0 20px;
+  margin: 14px 0 0 0
+}
 </style>
