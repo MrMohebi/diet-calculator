@@ -13,6 +13,11 @@
         </td>
       </tr>
       <tr>
+        <td colspan="2">
+          <MeterGroup :value="energyMeter" />
+        </td>
+      </tr>
+      <tr>
         <td>{{$t('portion')}}: </td>
         <td>
           <template v-if="totalNutrients.portion<0">
@@ -21,6 +26,11 @@
           <template  v-else>
             <span>{{numberWithCommas(totalNutrients.portion)}}</span><span>g</span>
           </template>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <MeterGroup :value="portionMeter" />
         </td>
       </tr>
       <tr>
@@ -35,6 +45,11 @@
         </td>
       </tr>
       <tr>
+        <td colspan="2">
+          <MeterGroup :value="carbohydrateMeter" />
+        </td>
+      </tr>
+      <tr>
         <td>{{$t('sugar')}}: </td>
         <td>
           <template v-if="totalNutrients.sugar<0">
@@ -43,6 +58,11 @@
           <template  v-else>
             <span>{{numberWithCommas(totalNutrients.sugar)}}</span><span>g</span>
           </template>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <MeterGroup :value="sugarMeter" />
         </td>
       </tr>
       <tr>
@@ -56,6 +76,11 @@
           </template>
         </td>
       </tr>
+      <tr>
+        <td colspan="2">
+          <MeterGroup :value="fiberMeter" />
+        </td>
+      </tr>
     </table>
   </div>
 </template>
@@ -64,7 +89,14 @@
 import {useNutrients} from "~/composables/nutrients/useNutrients";
 import numberWithCommas from "~/utils/numberWithCommas";
 
-const {totalNutrients} = useNutrients()
+const {
+  totalNutrients,
+  energyMeter,
+  portionMeter,
+  carbohydrateMeter,
+  sugarMeter,
+  fiberMeter,
+} = useNutrients()
 
 
 </script>
@@ -81,5 +113,9 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+:deep(.p-metergroup-label-text){
+  font-size:10px
 }
 </style>

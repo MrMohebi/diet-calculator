@@ -1,6 +1,7 @@
 import {type IFcdRes} from "~/inteface/fdcRes";
 import { useNutrientsStore} from "~/composables/nutrients/nutrients.store";
 import type {IFood, IMeal, INutrientsInPortion} from "~/composables/nutrients/nutrients.interface";
+import type {MeterItem} from "primevue/metergroup";
 
 
 export const useNutrients = () => {
@@ -9,6 +10,8 @@ export const useNutrients = () => {
 
     const DEFAULT_FOOD:IFood = {fdc_id:-1, amount:100, nutrientsInPortion:{fiber: -1, portion: -1, sugar: -1, carbohydrate: -1, energy: -1}}
     const DEFAULT_MEAL:IMeal = {mealName: t('meal'), foods:[structuredClone(DEFAULT_FOOD)]}
+    // const COLORS = ["#c45161", '#e094a0', '#f2b6c0', '#f2dde1', '#cbc7d8', '#8db7d2','#5e62a9','#434279']
+    const COLORS = ['#c7522a', '#e5c185', '#fbf2c4', '#74a892', '#008585', '#003f5c', '#58508d',  '#bc5090', '#ff6361', '#ffa600']
 
 
     const units = reactive([
@@ -129,6 +132,64 @@ export const useNutrients = () => {
     })
 
 
+    const energyMeter = computed(():MeterItem[] =>{
+        const result:MeterItem[] = []
+        const total = totalNutrients.value.energy
+        meals.value.forEach((meal,index)=>{
+            const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
+            if(mealNutrients.energy >=0){
+                result.push({ label: meal.mealName, color: COLORS[index] ?? COLORS[1], value: (mealNutrients.energy/total)*100, icon:""})
+            }
+        })
+        return result
+    })
+
+    const portionMeter = computed(():MeterItem[] =>{
+        const result:MeterItem[] = []
+        const total = totalNutrients.value.portion
+        meals.value.forEach((meal,index)=>{
+            const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
+            if(mealNutrients.portion >=0){
+                result.push({ label: meal.mealName, color: COLORS[index] ?? COLORS[1], value: (mealNutrients.portion/total)*100, icon:""})
+            }
+        })
+        return result
+    })
+    const carbohydrateMeter = computed(():MeterItem[] =>{
+        const result:MeterItem[] = []
+        const total = totalNutrients.value.carbohydrate
+        meals.value.forEach((meal,index)=>{
+            const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
+            if(mealNutrients.carbohydrate >=0){
+                result.push({ label: meal.mealName, color: COLORS[index] ?? COLORS[1], value: (mealNutrients.carbohydrate/total)*100, icon:""})
+            }
+        })
+        return result
+    })
+    const sugarMeter = computed(():MeterItem[] =>{
+        const result:MeterItem[] = []
+        const total = totalNutrients.value.sugar
+        meals.value.forEach((meal,index)=>{
+            const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
+            if(mealNutrients.sugar >=0){
+                result.push({ label: meal.mealName, color: COLORS[index] ?? COLORS[1], value: (mealNutrients.sugar/total)*100, icon:""})
+            }
+        })
+        return result
+    })
+    const fiberMeter = computed(():MeterItem[] =>{
+        const result:MeterItem[] = []
+        const total = totalNutrients.value.fiber
+        meals.value.forEach((meal,index)=>{
+            const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
+            if(mealNutrients.fiber >=0){
+                result.push({ label: meal.mealName, color: COLORS[index] ?? COLORS[1], value: (mealNutrients.fiber/total)*100, icon:""})
+            }
+        })
+        return result
+    })
+
+
     return{
         totalNutrients,
         isLoadingFoodData,
@@ -140,7 +201,12 @@ export const useNutrients = () => {
         onRemoveMeal,
         calculateMaleNutrients,
         units,
-        meals
+        meals,
+        energyMeter,
+        portionMeter,
+        carbohydrateMeter,
+        sugarMeter,
+        fiberMeter,
     }
 
 }
