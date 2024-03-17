@@ -10,7 +10,7 @@
     </component>
 
 
-    <meals :style="{width:$isMobile? '100%': '100%', padding:'0 20px'}"/>
+    <meals :style="{width:$isMobile? '100%': '100%', padding:'0 20px', paddingBottom:$isMobile?'130px':0}"/>
 
   </div>
 </template>
