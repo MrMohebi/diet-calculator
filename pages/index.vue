@@ -1,5 +1,10 @@
 <template>
   <div class="row">
+    <bottom-shit v-if="$isMobile" v-model="isOpen" :topShit="true">
+      <template #header>
+        <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"  style="margin-left: auto;"/>
+      </template>
+    </bottom-shit>
     <component
       :is="$isMobile? bottomShit : Fieldset"
       v-model="isOpen"
@@ -9,7 +14,7 @@
       <sum-nutrients />
     </component>
 
-    <meals :style="{width:$isMobile? '100%': '100%', padding:'0 20px', paddingBottom:$isMobile?'130px':0}"/>
+    <meals :style="{width:$isMobile? '100%': '100%', padding:'0 20px', paddingBottom:$isMobile?'130px':0, paddingTop:$isMobile?'50px':0}" class=" animate__animated animate__fadeInUp"/>
 
   </div>
 </template>
@@ -22,6 +27,7 @@ const bottomShit = resolveComponent('bottom-shit')
 const Fieldset = resolveComponent('Fieldset')
 
 const { $isMobile } = useNuxtApp()
+const { locale } = useI18n()
 const isOpen = ref(false)
 
 </script>
@@ -32,4 +38,10 @@ const isOpen = ref(false)
   padding:0 20px;
   margin: 14px 0 0 0
 }
+.select-lang{
+  :deep(.p-button-label){
+    font-size: 12px;
+  }
+}
+
 </style>

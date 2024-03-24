@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <div style="display: flex; flex-direction: column; align-items: center;">
     <template v-for="(meal, iMeal) in meals" :key="`meal_${iMeal}`">
       <Fieldset :toggleable="true" style="width: 100%;">
         <template #legend class="h-[70px]">

@@ -1,6 +1,6 @@
 <template>
   <div :style="{maxWidth:$isMobile? '100%': '70%'}"  class="mx-auto" >
-    <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"/>
+    <SelectButton v-if="!$isMobile" v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"/>
     <slot />
   </div>
 </template>
