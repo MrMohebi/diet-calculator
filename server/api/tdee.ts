@@ -13,9 +13,9 @@ export default defineEventHandler( async (event) => {
         })
     }
 
-    const age = query["age"]
-    const height = query["height"]
-    const weight = query["weight"]
+    const age = query["age"] as number
+    const height = query["height"] as number
+    const weight = query["weight"] as number
 
     let bmr
     if(query["gender"] == 'male'){

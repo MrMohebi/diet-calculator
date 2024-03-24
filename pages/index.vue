@@ -1,13 +1,14 @@
 <template>
   <div class="row">
-    <bottom-shit v-if="$isMobile" v-model="isOpen" :topShit="true">
+    <bottom-shit v-if="$isMobile" v-model="isOpenBmr" :topShit="true">
       <template #header>
-        <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"  style="margin-left: auto;"/>
+        <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"  style="margin-right: auto;"/>
       </template>
+      <bmr/>
     </bottom-shit>
     <component
       :is="$isMobile? bottomShit : Fieldset"
-      v-model="isOpen"
+      v-model="isOpenSum"
       :legend="`${$t('total')}:`"
       :class="{'desktop-total-container': !$isMobile}"
       >
@@ -28,7 +29,8 @@ const Fieldset = resolveComponent('Fieldset')
 
 const { $isMobile } = useNuxtApp()
 const { locale } = useI18n()
-const isOpen = ref(false)
+const isOpenSum = ref(false)
+const isOpenBmr = ref(false)
 
 </script>
 

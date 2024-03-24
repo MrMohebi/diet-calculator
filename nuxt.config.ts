@@ -40,4 +40,9 @@ export default defineNuxtConfig({
       base: './.data/db'
     }
   },
+  vite: {
+    optimizeDeps: {
+      include: ["qs"],
+    },
+  },
 })
