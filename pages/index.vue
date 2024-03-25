@@ -1,19 +1,25 @@
 <template>
   <div class="row">
-    <bottom-shit v-if="$isMobile" v-model="isOpenBmr" :topShit="true">
-      <template #header>
-        <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"  style="margin-right: auto;"/>
-      </template>
-      <bmr/>
-    </bottom-shit>
-    <component
-      :is="$isMobile? bottomShit : Fieldset"
-      v-model="isOpenSum"
-      :legend="`${$t('total')}:`"
-      :class="{'desktop-total-container': !$isMobile}"
+    <div :class="{'desktop-total-container': !$isMobile}">
+      <bottom-shit v-if="$isMobile" v-model="isOpenBmr" :topShit="true">
+        <template #header>
+          <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"  style="margin-right: auto;"/>
+        </template>
+        <bmr/>
+      </bottom-shit>
+      <Fieldset v-else :legend="`BMR`">
+        <bmr/>
+      </Fieldset>
+      <component
+          :is="$isMobile? bottomShit : Fieldset"
+          v-model="isOpenSum"
+          :legend="`${$t('total')}:`"
+
       >
-      <sum-nutrients />
-    </component>
+        <sum-nutrients />
+      </component>
+    </div>
+
 
     <meals :style="{width:$isMobile? '100%': '100%', padding:'0 20px', paddingBottom:$isMobile?'130px':0, paddingTop:$isMobile?'50px':0}" class=" animate__animated animate__fadeInUp"/>
 
