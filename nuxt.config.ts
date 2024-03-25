@@ -10,6 +10,26 @@ export default defineNuxtConfig({
   runtimeConfig: {
     FDC_API_KEY: 'ZK28BIF4kIQ79MdkTs4Cau17wf7hLKow2TRaUgfs'
   },
+  app: {
+    head: {
+      title:"Diet Calculator",
+      charset: "utf-8",
+      meta: [{ name: "theme-color", content: "#36ff00" }],
+      link: [
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.png",
+        },
+        {
+          hid: "apple-touch-icon",
+          rel: "apple-touch-icon",
+          type: "image/png",
+          href: "/favicon.png",
+        },
+      ],
+    },
+  },
   modules: [
     'nuxt-primevue',
     '@nuxtjs/i18n',
