@@ -10,6 +10,8 @@
       <Fieldset v-else :legend="`BMR`">
         <bmr/>
       </Fieldset>
+
+
       <component
           :is="$isMobile? bottomShit : Fieldset"
           v-model="isOpenSum"
