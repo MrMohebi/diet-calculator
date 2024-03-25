@@ -36,6 +36,9 @@ export default defineI18nConfig(() => ({
             excess:"excess",
             lack:"lack",
             reset:"reset",
+            export:"export",
+            getExport:"export",
+            kcl:"kilocalories",
 
         },
         fa: {
@@ -71,7 +74,10 @@ export default defineI18nConfig(() => ({
             required:"موردنیاز",
             excess:"مازاد",
             lack:"کمبود",
-            reset:"ریست"
+            reset:"ریست",
+            export:"خروجی",
+            getExport:"دریافت خروجی",
+            kcl:"کیلوکاری",
         }
     }
 }))

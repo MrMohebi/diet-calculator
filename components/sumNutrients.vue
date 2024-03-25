@@ -116,6 +116,9 @@
         <td style="width: 100%;"></td>
       </tr>
     </table>
+
+    <Button :label="$t('getExport')" @click="router.push('/export-text')"/>
+
   </div>
 </template>
 
@@ -123,6 +126,9 @@
 import {useNutrients} from "~/composables/nutrients/useNutrients";
 import numberWithCommas from "~/utils/numberWithCommas";
 import {useTdee} from "~/composables/tdee/useTdee";
+import {useRouter} from "#app";
+
+const router = useRouter()
 
 const {
   totalNutrients,
