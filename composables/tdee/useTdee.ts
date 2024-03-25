@@ -45,9 +45,17 @@ export const useTdee = () => {
         tdee.value = await $fetch<ITdee>(`/api/tdee?${paramStringify(params)}`)
     }
 
+    const requiredCalories = computed(()=>tdee.value.bmr + (gymKC.value ?? 0))
+
+    const resetTdee = () =>{
+        useTdeeStore().$reset()
+    }
+
 
 
     return{
+        resetTdee,
+        requiredCalories,
         getTdee,
         gender,
         height,

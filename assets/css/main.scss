@@ -54,6 +54,13 @@ input[type="number"] {
   justify-content: center;
 }
 
+.center-content-row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .mx-auto{
   margin-left: auto;
   margin-right: auto;

@@ -17,13 +17,17 @@
       <InputNumber v-model="gymKC" :placeholder="$t('gymKC')" suffix=" kcl"/>
     </div>
 
-    <Button :label="$t('calculate')" severity="secondary" @click="getTdee"/>
+    <div class="row space-x-4">
+      <Button :label="$t('calculate')" severity="secondary" @click="getTdee"/>
+      <Button :label="$t('reset')" severity="danger" @click="resetTdee"/>
+    </div>
+
 
     <div>
       <div class="space-x-4 row">
         <div>{{$t('dailyRequiredCalories')}}:</div>
         <template v-if="tdee?.bmr >0">
-          <div>{{numberWithCommas(tdee.bmr + (gymKC ?? 0)) }}</div>
+          <div>{{numberWithCommas(requiredCalories) }}</div>
           <div>kcl</div>
         </template>
         <div v-else>{{ $t('unknown') }}</div>
@@ -51,7 +55,7 @@ import Toast from 'primevue/toast';
 import {useTdee} from "~/composables/tdee/useTdee";
 import numberWithCommas from "~/utils/numberWithCommas";
 
-const {gender, age, height, weight, getTdee, gymKC, tdee, requiredPortion} = useTdee()
+const {gender, age, height, weight, getTdee, gymKC, tdee, requiredPortion, requiredCalories, resetTdee} = useTdee()
 </script>
 
 <style scoped lang="scss">

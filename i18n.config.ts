@@ -31,6 +31,12 @@ export default defineI18nConfig(() => ({
             dailyRequiredCalories:"daily required calories",
             dailyRequiredPortions:"daily required portion",
             to:"to",
+            from:"from",
+            required:"required",
+            excess:"excess",
+            lack:"lack",
+            reset:"reset",
+
         },
         fa: {
             toEdit: 'ویرایش کنید',
@@ -60,8 +66,12 @@ export default defineI18nConfig(() => ({
             error:"خطا",
             dailyRequiredCalories:"کالری مورد نیاز روزانه",
             dailyRequiredPortions:"پروتئین مورد نیاز روزانه",
-            to:"تا"
-
+            to:"تا",
+            from:"از",
+            required:"موردنیاز",
+            excess:"مازاد",
+            lack:"کمبود",
+            reset:"ریست"
         }
     }
 }))
