@@ -1,6 +1,6 @@
 import {type IFcdRes} from "~/inteface/fdcRes";
 import { useNutrientsStore} from "~/composables/nutrients/nutrients.store";
-import type {IFood, IMeal, INutrientsInPortion} from "~/composables/nutrients/nutrients.interface";
+import type {IFood, IMeal, INutrientsInProtein} from "~/composables/nutrients/nutrients.interface";
 import type {MeterItem} from "primevue/metergroup";
 
 
@@ -8,7 +8,7 @@ export const useNutrients = () => {
     const {t, locale} = useI18n()
     const {meals} = storeToRefs(useNutrientsStore())
 
-    const DEFAULT_FOOD:IFood = {fdc_id:-1, amount:100, nutrientsInPortion:{fiber: -1, portion: -1, sugar: -1, carbohydrate: -1, energy: -1}}
+    const DEFAULT_FOOD:IFood = {fdc_id:-1, amount:100, nutrientsInProtein:{fiber: -1, protein: -1, sugar: -1, carbohydrate: -1, energy: -1}}
     const DEFAULT_MEAL:IMeal = {mealName: t('meal'), foods:[structuredClone(DEFAULT_FOOD)]}
     // const COLORS = ["#c45161", '#e094a0', '#f2b6c0', '#f2dde1', '#cbc7d8', '#8db7d2','#5e62a9','#434279']
     const COLORS = ['#c7522a', '#e5c185', '#fbf2c4', '#74a892', '#008585', '#003f5c', '#58508d',  '#bc5090', '#ff6361', '#ffa600']
@@ -46,14 +46,14 @@ export const useNutrients = () => {
             meals.value.splice(index,1)
     }
 
-    const fcdAdaptor = (fcdRes:IFcdRes):INutrientsInPortion =>{
+    const fcdAdaptor = (fcdRes:IFcdRes):INutrientsInProtein =>{
         let energy =
             fcdRes.foodNutrients.find(i=>i.number==(208).toString())?.amount ??
             fcdRes.foodNutrients.find(i=>i.number==(957).toString())?.amount ??
             -1
 
         return {
-            portion:fcdRes.foodNutrients.find(i=>i.number==(203).toString())?.amount??-1,
+            protein:fcdRes.foodNutrients.find(i=>i.number==(203).toString())?.amount??-1,
             energy: energy,
             carbohydrate:fcdRes.foodNutrients.find(i=>i.number==(205).toString())?.amount??-1,
             sugar:fcdRes.foodNutrients.find(i=>i.number==(269.3).toString())?.amount??-1,
@@ -66,7 +66,7 @@ export const useNutrients = () => {
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = true
 
         const res = await $fetch<IFcdRes>(`/api/food/${fcd_id}`)
-        meals.value[indexMeal].foods[indexFood].nutrientsInPortion = fcdAdaptor(res)
+        meals.value[indexMeal].foods[indexFood].nutrientsInProtein = fcdAdaptor(res)
 
         // @ts-ignore
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = false
@@ -75,11 +75,11 @@ export const useNutrients = () => {
     const calculateFoodNutrients = (food:IFood, unitGram:number)=>{
         return [
             {
-                fiber:Math.round((food.amount/unitGram)*food.nutrientsInPortion.fiber),
-                portion:Math.round((food.amount/unitGram)*food.nutrientsInPortion.portion),
-                sugar:Math.round((food.amount/unitGram)*food.nutrientsInPortion.sugar),
-                energy:Math.round((food.amount/unitGram)*food.nutrientsInPortion.energy),
-                carbohydrate:Math.round((food.amount/unitGram)*food.nutrientsInPortion.carbohydrate),
+                fiber:Math.round((food.amount/unitGram)*food.nutrientsInProtein.fiber),
+                protein:Math.round((food.amount/unitGram)*food.nutrientsInProtein.protein),
+                sugar:Math.round((food.amount/unitGram)*food.nutrientsInProtein.sugar),
+                energy:Math.round((food.amount/unitGram)*food.nutrientsInProtein.energy),
+                carbohydrate:Math.round((food.amount/unitGram)*food.nutrientsInProtein.carbohydrate),
             }
         ]
     }
@@ -87,7 +87,7 @@ export const useNutrients = () => {
     const calculateMaleNutrients = (mealFoods:IFood[],unitGram:number) =>{
         const result = {
             fiber:-1,
-            portion:-1,
+            protein:-1,
             sugar:-1,
             energy:-1,
             carbohydrate:-1,
@@ -111,8 +111,8 @@ export const useNutrients = () => {
         return [result]
     }
 
-    const totalNutrients = computed(():INutrientsInPortion=>{
-        const result:INutrientsInPortion = {fiber:-1, portion:-1, sugar:-1, energy:-1, carbohydrate:-1,}
+    const totalNutrients = computed(():INutrientsInProtein=>{
+        const result:INutrientsInProtein = {fiber:-1, protein:-1, sugar:-1, energy:-1, carbohydrate:-1,}
         meals.value.forEach(meal=>{
             const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
             Object.keys(mealNutrients).forEach(key=>{
@@ -144,13 +144,13 @@ export const useNutrients = () => {
         return result
     })
 
-    const portionMeter = computed(():MeterItem[] =>{
+    const proteinMeter = computed(():MeterItem[] =>{
         const result:MeterItem[] = []
-        const total = totalNutrients.value.portion
+        const total = totalNutrients.value.protein
         meals.value.forEach((meal,index)=>{
             const mealNutrients = calculateMaleNutrients(meal.foods, 100)[0]
-            if(mealNutrients.portion >=0){
-                result.push({ label: meal.mealName, color: COLORS[index] ?? COLORS[1], value: (mealNutrients.portion/total)*100, icon:""})
+            if(mealNutrients.protein >=0){
+                result.push({ label: meal.mealName, color: COLORS[index] ?? COLORS[1], value: (mealNutrients.protein/total)*100, icon:""})
             }
         })
         return result
@@ -203,7 +203,7 @@ export const useNutrients = () => {
         units,
         meals,
         energyMeter,
-        portionMeter,
+        proteinMeter,
         carbohydrateMeter,
         sugarMeter,
         fiberMeter,

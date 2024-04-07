@@ -6,8 +6,8 @@
         <span>{{ $t('dailyRequiredCalories') }}: {{ numberWithCommas(requiredCalories) }} {{ $t('kcl') }}</span>
       </div>
 
-      <div v-if="requiredPortion[0] > 0">
-        <span>{{ $t('dailyRequiredPortions') }}: {{ numberWithCommas(requiredPortion[0]) }} {{ $t('to') }} {{ numberWithCommas(requiredPortion[1]) }} {{ $t('gram') }}</span>
+      <div v-if="requiredProtein[0] > 0">
+        <span>{{ $t('dailyRequiredProteins') }}: {{ numberWithCommas(requiredProtein[0]) }} {{ $t('to') }} {{ numberWithCommas(requiredProtein[1]) }} {{ $t('gram') }}</span>
       </div>
 
       <br/>
@@ -28,7 +28,7 @@
 
       <div>
         <div v-if="totalNutrients.energy >0">{{ $t('total') }}  {{ $t('energy') }}: {{numberWithCommas(totalNutrients.energy)}} {{ $t('kcl') }}</div>
-        <div v-if="totalNutrients.portion >0">{{ $t('total') }}  {{ $t('portion') }}: {{numberWithCommas(totalNutrients.portion)}} {{ $t('gram') }}</div>
+        <div v-if="totalNutrients.protein >0">{{ $t('total') }}  {{ $t('protein') }}: {{numberWithCommas(totalNutrients.protein)}} {{ $t('gram') }}</div>
         <div v-if="totalNutrients.carbohydrate >0">{{ $t('total') }}  {{ $t('carbohydrate') }}: {{numberWithCommas(totalNutrients.carbohydrate)}} {{ $t('gram') }}</div>
         <div v-if="totalNutrients.sugar >0">{{ $t('total') }}  {{ $t('sugar') }}: {{numberWithCommas(totalNutrients.sugar)}} {{ $t('gram') }}</div>
         <div v-if="totalNutrients.fiber >0">{{ $t('total') }}  {{ $t('fiber') }}: {{numberWithCommas(totalNutrients.fiber)}} {{ $t('gram') }}</div>
@@ -55,7 +55,7 @@ const {
   meals,
   totalNutrients
 } = useNutrients()
-const {requiredCalories, requiredPortion} = useTdee()
+const {requiredCalories, requiredProtein} = useTdee()
 
 </script>
 

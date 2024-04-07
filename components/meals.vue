@@ -51,7 +51,7 @@
                     </template>
                   </template>
                 </Column>
-                <Column field="portion" :header="$t('portion')">
+                <Column field="protein" :header="$t('protein')">
                   <template #body="{data,field}" >
                     <template v-if="data[field]<0">
                       <span>{{$t('unknown')}}</span>
@@ -114,7 +114,7 @@
                 </template>
               </template>
             </Column>
-            <Column field="portion" :header="$t('portion')">
+            <Column field="protein" :header="$t('protein')">
               <template #body="{data,field}" >
                 <template v-if="data[field]<0">
                   <span>{{$t('unknown')}}</span>

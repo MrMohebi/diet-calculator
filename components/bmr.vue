@@ -33,12 +33,12 @@
         <div v-else>{{ $t('unknown') }}</div>
       </div>
       <div class="row space-x-2">
-        <div>{{$t('dailyRequiredPortions')}}:</div>
-        <template v-if="requiredPortion[0] >= 0">
-          <div>{{numberWithCommas(requiredPortion[0]) }}</div>
+        <div>{{$t('dailyRequiredProteins')}}:</div>
+        <template v-if="requiredProtein[0] >= 0">
+          <div>{{numberWithCommas(requiredProtein[0]) }}</div>
           <div>g</div>
           <div style="margin:0 5px">{{$t('to')}}</div>
-          <div>{{numberWithCommas(requiredPortion[1]) }}</div>
+          <div>{{numberWithCommas(requiredProtein[1]) }}</div>
           <div>g</div>
         </template>
         <div v-else>{{ $t('unknown') }}</div>
@@ -55,7 +55,7 @@ import Toast from 'primevue/toast';
 import {useTdee} from "~/composables/tdee/useTdee";
 import numberWithCommas from "~/utils/numberWithCommas";
 
-const {gender, age, height, weight, getTdee, gymKC, tdee, requiredPortion, requiredCalories, resetTdee} = useTdee()
+const {gender, age, height, weight, getTdee, gymKC, tdee, requiredProtein, requiredCalories, resetTdee} = useTdee()
 </script>
 
 <style scoped lang="scss">

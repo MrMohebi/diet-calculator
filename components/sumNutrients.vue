@@ -33,34 +33,34 @@
         </td>
       </tr>
       <tr>
-        <td>{{$t('portion')}}: </td>
+        <td>{{$t('protein')}}: </td>
         <td style="width: 100%;" class="center-content-row">
-          <template v-if="totalNutrients.portion<0">
+          <template v-if="totalNutrients.protein<0">
             <span>{{$t('unknown')}}</span>
           </template>
           <template  v-else>
-            <ProgressBar style="width: 100%" v-if="requiredPortion[1] > 0" :value="(totalNutrients.portion /requiredPortion[1]) * 100">
-              <div :style="{color: totalNutrients.portion > requiredPortion[1] ? '#b11111' : '',textWrap: 'nowrap' }">
+            <ProgressBar style="width: 100%" v-if="requiredProtein[1] > 0" :value="(totalNutrients.protein /requiredProtein[1]) * 100">
+              <div :style="{color: totalNutrients.protein > requiredProtein[1] ? '#b11111' : '',textWrap: 'nowrap' }">
                 {{
-                  `${numberWithCommas(totalNutrients.portion)} ${$t('from')} ${numberWithCommas(requiredPortion[1])}
-                   ${excessedPortionPercentage > 0 ?
-                      ' - '+excessedPortionPercentage + "% " + $t('excess')
+                  `${numberWithCommas(totalNutrients.protein)} ${$t('from')} ${numberWithCommas(requiredProtein[1])}
+                   ${excessedProteinPercentage > 0 ?
+                      ' - '+excessedProteinPercentage + "% " + $t('excess')
                       :
-                      ' - '+Math.abs(excessedPortionPercentage) + "% " + $t('lack')
+                      ' - '+Math.abs(excessedProteinPercentage) + "% " + $t('lack')
                   }
                   `
                 }}
               </div>
             </ProgressBar>
             <template v-else>
-              <span>{{numberWithCommas(totalNutrients.portion)}}</span><span>g</span>
+              <span>{{numberWithCommas(totalNutrients.protein)}}</span><span>g</span>
             </template>
           </template>
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <MeterGroup :value="portionMeter" />
+          <MeterGroup :value="proteinMeter" />
         </td>
       </tr>
       <tr>
@@ -133,13 +133,13 @@ const router = useRouter()
 const {
   totalNutrients,
   energyMeter,
-  portionMeter,
+  proteinMeter,
   carbohydrateMeter,
   sugarMeter,
   fiberMeter,
 } = useNutrients()
 
-const {requiredCalories, requiredPortion} = useTdee()
+const {requiredCalories, requiredProtein} = useTdee()
 
 const excessedCaloriesPercentage = computed(()=> Math.round(
     (
@@ -147,9 +147,9 @@ const excessedCaloriesPercentage = computed(()=> Math.round(
     ) * 100
 ))
 
-const excessedPortionPercentage = computed(()=> Math.round(
+const excessedProteinPercentage = computed(()=> Math.round(
     (
-        (totalNutrients.value.portion - requiredPortion.value[1]) / requiredPortion.value[1]
+        (totalNutrients.value.protein - requiredProtein.value[1]) / requiredProtein.value[1]
     ) * 100
 ))
 

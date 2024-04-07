@@ -17,7 +17,7 @@ export const useTdee = () => {
         gymKC
     } = storeToRefs(useTdeeStore())
 
-    const requiredPortion = computed(():[number,number]=>{
+    const requiredProtein = computed(():[number,number]=>{
         if(!!weight.value && weight.value > 0){
             return [weight.value*1.2, weight.value*1.7]
         }
@@ -63,6 +63,6 @@ export const useTdee = () => {
         age,
         gymKC,
         tdee,
-        requiredPortion
+        requiredProtein
     }
 }

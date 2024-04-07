@@ -1,12 +1,12 @@
 export interface IFood{
     fdc_id:number
     amount:number
-    nutrientsInPortion:INutrientsInPortion
+    nutrientsInProtein:INutrientsInProtein
 }
 
-export interface INutrientsInPortion{
+export interface INutrientsInProtein{
     fiber: number;
-    portion: number;
+    protein: number;
     sugar: number;
     carbohydrate: number;
     energy:number;
