@@ -39,6 +39,7 @@ export default defineI18nConfig(() => ({
             export:"export",
             getExport:"export",
             kcl:"kilocalories",
+            enterBodyData:"Enter your Body data",
 
         },
         fa: {
@@ -78,6 +79,8 @@ export default defineI18nConfig(() => ({
             export:"خروجی",
             getExport:"دریافت خروجی",
             kcl:"کیلوکاری",
+            enterBodyData:"اطلاعات بدنی خود را وارد کنید",
+
         }
     }
 }))

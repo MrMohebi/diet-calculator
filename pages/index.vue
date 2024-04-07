@@ -1,9 +1,16 @@
 <template>
   <div class="row">
     <div :class="{'desktop-total-container': !$isMobile}">
-      <bottom-shit v-if="$isMobile" v-model="isOpenBmr" :topShit="true">
+      <bottom-shit v-if="$isMobile" v-model="isOpenBmr" :topShit="true" :icon-outlined="false" icon-severity="info">
         <template #header>
-          <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"  style="margin-right: auto;"/>
+          <div style="width: 100%;justify-content: space-between;flex-direction: row-reverse;align-items: center;" class="row">
+            <SelectButton v-model="locale" :options="['fa', 'en']" aria-labelledby="lang"  class="select-lang"/>
+            <div>
+              <span v-if="!isOpenBmr" style="color: rgb(91 145 173)">
+                {{$t('enterBodyData')}}
+              </span>
+            </div>
+          </div>
         </template>
         <bmr/>
       </bottom-shit>

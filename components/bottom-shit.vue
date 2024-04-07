@@ -2,7 +2,7 @@
 <!--  <div class="bottom-shit" :style="{maxHeight: model?'fit-content':'120px'}">-->
   <div :class="{'top-shit':topShit, 'bottom-shit': !topShit, 'open':model, 'close':!model}">
     <div class="row" style="align-items: center;">
-      <Button style="margin: 0 5px" :icon="'pi '+ (model ^ topShit ? ' pi-angle-down ':' pi-angle-up ')" rounded outlined aria-label="extend" @click="model = !model"/>
+      <Button style="margin: 0 5px" :icon="'pi '+ (model ^ topShit ? ' pi-angle-down ':' pi-angle-up ')" :rounded="iconRounded" :outlined="iconOutlined" :severity="iconSeverity" aria-label="extend" @click="model = !model"/>
       <slot name="header"/>
     </div>
     <slot/>
@@ -15,6 +15,18 @@ const props = defineProps({
   topShit: {
     type: Boolean,
     default:false
+  },
+  iconRounded:{
+    type: Boolean,
+    default: true
+  },
+  iconOutlined:{
+    type: Boolean,
+    default: true
+  },
+  iconSeverity:{
+    type: String,
+    default: "primary"
   },
 })
 const emit = defineEmits(["update:modelValue"]);
