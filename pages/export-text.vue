@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import foods from "~/consts/foods";
 
 definePageMeta({
   layout: "empty"
@@ -50,12 +49,19 @@ const {locale} = useI18n()
 import {useNutrients} from "~/composables/nutrients/useNutrients";
 import {useTdee} from "~/composables/tdee/useTdee";
 import numberWithCommas from "~/utils/numberWithCommas";
+import {useFoods} from "~/composables/foods/useFoods";
 
+const {getFoods, foods} = useFoods()
 const {
   meals,
   totalNutrients
 } = useNutrients()
+
 const {requiredCalories, requiredProtein} = useTdee()
+
+onMounted(()=>{
+  getFoods()
+})
 
 </script>
 

@@ -1,0 +1,190 @@
+import { defineStore } from "pinia";
+import type {IFoodBase} from "~/composables/foods/foods.interface";
+
+export interface IFoodsStore {
+    foods:IFoodBase[]
+}
+export const useFoodsStore = defineStore("foods", {
+    state: ():IFoodsStore=> ({
+        foods:[
+            {
+                fdc_id:174270,
+                name_en:"Soybeans, mature seeds",
+                name_fa:"سویا اجیلی",
+            },
+            {
+                fdc_id:2344896,
+                name_en:"Potato, roasted",
+                name_fa:"سیب زمینی کبابی",
+            },
+            {
+                fdc_id:2344879,
+                name_en:"Potato, boiled",
+                name_fa:"سیب زمینی آبپز",
+            },
+            {
+                fdc_id:2512380,
+                name_en:"Rice, brown",
+                name_fa:"برنج قهوه ای",
+            },
+            {
+                fdc_id:2512381,
+                name_en:"Rice, white",
+                name_fa:"برنچ سفید",
+            },
+            {
+                fdc_id:747445,
+                name_en:"Beans, pinto",
+                name_fa:"لوبیا چیتی",
+            },
+            {
+                fdc_id:747440,
+                name_en:"Beans, Dark Red Kidney",
+                name_fa:"لوبیا قرمز",
+            },
+            {
+                fdc_id:171320,
+                name_en:"Cinnamon",
+                name_fa:"دارچین",
+            },
+            {
+                fdc_id:2346396,
+                name_en:"Oats, whole grain, rolled",
+                name_fa:"جو پرک",
+            },
+            {
+                fdc_id:170554,
+                name_en:"Chia seeds",
+                name_fa:"دانه چیا",
+            },
+            {
+                fdc_id:170567,
+                name_en:"almond",
+                name_fa:"بادام درختی",
+            },
+            {
+                fdc_id:1999629,
+                name_en:"Mushrooms, white button",
+                name_fa:"قارچ دکمه ای",
+            },
+            {
+                fdc_id:747447,
+                name_en:"Broccoli",
+                name_fa:"کلم بروکلی",
+            },
+            {
+                fdc_id:169640,
+                name_en:"honey",
+                name_fa:"عسل",
+            },
+            {
+                fdc_id: 748967,
+                name_en: "Eggs, egg whole",
+                name_fa: "تخم مرغ خام بزرگ",
+            },
+            {
+                fdc_id: 747997,
+                name_en: "Eggs, egg white",
+                name_fa: "سفیده تخم مرغ",
+            },
+            {
+                fdc_id: 746758,
+                name_en: "Beef, loin, tenderloin roast",
+                name_fa: "فیله گوشت خالص پخته شده",
+            },
+            {
+                fdc_id: 746785,
+                name_en: "Turkey, ground, pan-broiled",
+                name_fa: "گوشت بوقلمون چرخشده تفتی",
+            },
+            {
+                fdc_id: 331960,
+                name_en: "Chicken, broiler or fryers",
+                name_fa: "فیله مرغ پخته شده",
+            },
+            {
+                fdc_id: 2646171,
+                name_en: "Chicken, thigh",
+                name_fa: "ران مرغ خام",
+            },
+            {
+                fdc_id: 746772,
+                name_en: "Milk, low-fat 1% milk-fat",
+                name_fa: "شیر کم چرب",
+            },
+            {
+                fdc_id: 746776,
+                name_en: "Milk, nonfat",
+                name_fa: "شیر بدون چربی",
+            },
+            {
+                fdc_id: 746778,
+                name_en: "Milk, reduced fat, 2% milk-fat",
+                name_fa: "شیر ۲٪ چربی",
+            },
+            {
+                fdc_id: 746782,
+                name_en: "Milk, 3.25% milk-fat",
+                name_fa: "شیر پر چرب",
+            },
+            {
+                fdc_id: 2259793,
+                name_en: "Yogurt",
+                name_fa: "ماست ساده",
+            },
+            {
+                fdc_id: 2259794,
+                name_en: "Yogurt, Greek",
+                name_fa: "ماست یونانی",
+            },
+            {
+                fdc_id: 330458,
+                name_en: "Coconut Oil",
+                name_fa: "روغن نارگیل",
+            },
+            {
+                fdc_id: 748323,
+                name_en: "Corn Oil",
+                name_fa: "روغن ذرت",
+            },
+            {
+                fdc_id: 1750351,
+                name_en: "Olive Oil extra light",
+                name_fa: "روغن زیتون سبک",
+            },
+            {
+                fdc_id: 748608,
+                name_en: "Olive Oil, extra virgin",
+                name_fa: "روغن زیتون",
+            },
+            {
+                fdc_id: 1750349,
+                name_en: "Sunflower Oil",
+                name_fa: "روغن آفتابگردان",
+            },
+            {
+                fdc_id: 1750350,
+                name_en: "Safflower Oil",
+                name_fa: "روغن گلرنگ",
+            },
+            {
+                fdc_id: 748366,
+                name_en: "Soybean Oil",
+                name_fa: "روغن سویا",
+            },
+            {
+                fdc_id: 169869,
+                name_en: "Peanut butter",
+                name_fa: "کره بادام زمینی کم نمک",
+            },
+            {
+                fdc_id: 746784,
+                name_en: "Sugars",
+                name_fa: "قند",
+            },
+
+        ]
+    }),
+    getters: {},
+    actions: {},
+});

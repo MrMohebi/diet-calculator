@@ -176,11 +176,12 @@ import Fieldset from "primevue/fieldset";
 import Button from "primevue/button";
 import Inplace from "primevue/inplace";
 import numberWithCommas from "~/utils/numberWithCommas";
-import foods from "~/consts/foods";
+
 
 
 import {useNutrients} from "~/composables/nutrients/useNutrients";
 import {useHint} from "~/composables/useHint";
+import {useFoods} from "~/composables/foods/useFoods";
 
 const {locale} = useI18n()
 
@@ -197,10 +198,14 @@ const {
   units
 } = useNutrients()
 
+const {getFoods, foods} = useFoods()
+
+
 const {hintModel, startFade} = useHint()
 
 onMounted(()=>{
   startFade()
+  getFoods()
 })
 
 </script>
