@@ -105,6 +105,26 @@
     "name_fa": "سفیده تخم مرغ"
   },
   {
+    "fdc_id": 173423,
+    "name_en": "Egg, whole, cooked, fried",
+    "name_fa": "تخم مرغ سرخ شده"
+  },
+  {
+    "fdc_id": 172185,
+    "name_en": "Egg, whole, cooked, omelet",
+    "name_fa": "تخم مرغ املت"
+  },
+  {
+    "fdc_id": 172186,
+    "name_en": "Egg, whole, cooked, poached",
+    "name_fa": "تخم مرغ آبپز"
+  },
+  {
+    "fdc_id": 172187,
+    "name_en": "Egg, whole, cooked, scrambled",
+    "name_fa": "تخم مرغ پخته همزده"
+  },
+  {
     "fdc_id": 746758,
     "name_en": "Beef, loin, tenderloin roast",
     "name_fa": "فیله گوشت خالص پخته شده"
@@ -115,9 +135,14 @@
     "name_fa": "گوشت بوقلمون چرخشده تفتی"
   },
   {
-    "fdc_id": 331960,
-    "name_en": "Chicken, broiler or fryers",
+    "fdc_id": 171477,
+    "name_en": "Chicken, breast, broiler or fryers",
     "name_fa": "فیله مرغ پخته شده"
+  },
+  {
+    "fdc_id": 172388,
+    "name_en": "Chicken, thigh, broiler or fryers",
+    "name_fa": "ران مرغ پخته شده"
   },
   {
     "fdc_id": 2646171,
