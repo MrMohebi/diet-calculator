@@ -75,11 +75,11 @@ export const useNutrients = () => {
     const calculateFoodNutrients = (food:IFood, unitGram:number)=>{
         return [
             {
-                fiber:Math.round((food.amount/unitGram)*food.nutrientsInProtein.fiber),
-                protein:Math.round((food.amount/unitGram)*food.nutrientsInProtein.protein),
-                sugar:Math.round((food.amount/unitGram)*food.nutrientsInProtein.sugar),
-                energy:Math.round((food.amount/unitGram)*food.nutrientsInProtein.energy),
-                carbohydrate:Math.round((food.amount/unitGram)*food.nutrientsInProtein.carbohydrate),
+                fiber:Math.round((food.amount/unitGram)*(food.nutrientsInProtein?.fiber??-1)),
+                protein:Math.round((food.amount/unitGram)*(food.nutrientsInProtein?.protein??-1)),
+                sugar:Math.round((food.amount/unitGram)*(food.nutrientsInProtein?.sugar??-1)),
+                energy:Math.round((food.amount/unitGram)*(food.nutrientsInProtein?.energy??-1)),
+                carbohydrate:Math.round((food.amount/unitGram)*(food.nutrientsInProtein?.carbohydrate??-1)),
             }
         ]
     }

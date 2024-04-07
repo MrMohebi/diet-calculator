@@ -100,6 +100,7 @@
 
         <div class="center-content" style=";margin-left: auto;margin-right: auto; width:100%; transform: translate(0, -20px);">
           <Button icon="pi pi-plus" rounded style="" @click="()=>onAddFood(iMeal)"/>
+          <span v-if="hintModel"  style="color: #669972;position: absolute;top: 40px;width: max-content;">{{$t('addFood')}}</span>
         </div>
         <div v-if="Object.values(calculateMaleNutrients(meal.foods,units[0][0].gram)[0]).reduce((a, b) => a + b, 0) > 0">
           <div style="font-size:12px;margin-bottom:10px">{{$t('mealNutrients')}}:</div>
@@ -160,8 +161,10 @@
       </Fieldset>
     </template>
 
-
-    <Button icon="pi pi-plus" severity="help" rounded style="margin: 10px;" @click="onAddMeal"/>
+    <div class="col center-content" style="margin: 10px;position: relative;" >
+      <Button icon="pi pi-plus" severity="help" rounded @click="onAddMeal"/>
+      <span v-if="hintModel" style="color: #a97db3;position: absolute;top: 40px;width: max-content;">{{$t('addMeal')}}</span>
+    </div>
 
 
   </div>
@@ -177,6 +180,7 @@ import foods from "~/consts/foods";
 
 
 import {useNutrients} from "~/composables/nutrients/useNutrients";
+import {useHint} from "~/composables/useHint";
 
 const {locale} = useI18n()
 
@@ -193,8 +197,11 @@ const {
   units
 } = useNutrients()
 
+const {hintModel, startFade} = useHint()
 
-
+onMounted(()=>{
+  startFade()
+})
 
 </script>
 
