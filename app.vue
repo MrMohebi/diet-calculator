@@ -1,5 +1,5 @@
 <template>
-  <nuxt-layout :class="{rtl: rtlNeededLanguages.includes(locale)}">
+  <nuxt-layout>
     <nuxt-page />
   </nuxt-layout>
 </template>
@@ -14,6 +14,12 @@ const nutrientsStore = useNutrientsStore()
 const tdeeStore = useTdeeStore()
 
 const rtlNeededLanguages = ['fa']
+
+useHead({
+  bodyAttrs: {
+    class:  computed(()=>(rtlNeededLanguages.includes(locale.value) ? 'rtl' : 'ltr'))
+  }
+})
 
 nutrientsStore.$subscribe((mutation, state) => {
   localStorage.setItem(MEALS_LS, JSON.stringify(state))
