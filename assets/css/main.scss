@@ -6,7 +6,8 @@
 
 .rtl{
   direction: rtl;
-
+  font-family: IranSans, serif !important;
+  --font-family: IranSans, serif !important;
   .p-dropdown-filter{
     transform: translate(-30px, 0);
   }
@@ -14,8 +15,8 @@
 
 body {
   //@extend .rtl;
-  font-family: IranSans, serif !important;
-  --font-family: IranSans, serif !important;
+  font-family: SansPro, serif !important;
+  --font-family: SansPro, serif !important;
   scrollbar-width: none;
   -ms-overflow-style: none;
   user-select: none;
