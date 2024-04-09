@@ -14,6 +14,7 @@ export interface IFoodPortion {
     sequenceNumber: number;
     amount: number;
     modifier: string;
+    portionDescription: string;
     measureUnit: IMeasureUnit;
 }
 export interface IMeasureUnit {
@@ -51,7 +52,7 @@ export default defineEventHandler( async (event):Promise<IFcdRes> => {
                 `https://api.nal.usda.gov/fdc/v1/food/${id}?nutrients=${encodeURIComponent(neededData.join(","))}&api_key=${config.FDC_API_KEY}`,
                 {
                     method:"GET",
-                    timeout: 10000,
+                    timeout: 90000,
                 }
             )
             useStorage('db').setItem(id, data).then()
