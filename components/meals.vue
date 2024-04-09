@@ -28,19 +28,20 @@
                 @change="()=>onChangeFood(food.fdc_id, iMeal, iFood)"
             />
             <Dropdown
-                style="width: 90px"
-                v-model="units[0][0].unit"
-                :options="units[0]"
-                :optionLabel="`name_${locale}`"
+                style="width: 120px"
+                v-model="food.selectedPortionId"
+                :options="food.portions"
                 :placeholder="$t('select')"
-                optionValue="unit"
+                :optionLabel="foodLabelGenerator"
+                optionValue="id"
+                @change="()=>onChangePortion(iMeal, iFood)"
             />
-            <InputNumber :input-style="{maxWidth: '50px'}" v-model="food.amount" :min="0"/>
+            <InputNumber :input-style="{maxWidth: '50px'}" v-model="food.amount" :min="1" :invalid="!food.amount || food.amount<0"/>
           </div>
 
           <div style="width: 100%;display: flex; flex-direction: row; align-items: center;">
             <InlineMessage style="width: 100%" severity="secondary">
-              <DataTable :loading="isLoadingFoodData[iMeal.toString()+iFood.toString()] ?? false" :value="calculateFoodNutrients(food,units[0][0].gram)" style="width:100%;">
+              <DataTable :loading="isLoadingFoodData[iMeal.toString()+iFood.toString()] ?? false" :value="calculateFoodNutrients(food)" style="width:100%;">
                 <Column field="energy" :header="$t('energy')">
                   <template #body="{data,field}" >
                     <template v-if="data[field]<0">
@@ -102,9 +103,9 @@
           <Button icon="pi pi-plus" rounded style="" @click="()=>onAddFood(iMeal)"/>
           <span v-if="hintModel"  style="color: #669972;position: absolute;top: 40px;width: max-content;">{{$t('addFood')}}</span>
         </div>
-        <div v-if="Object.values(calculateMaleNutrients(meal.foods,units[0][0].gram)[0]).reduce((a, b) => a + b, 0) > 0">
+        <div v-if="Object.values(calculateMaleNutrients(meal.foods)[0]).reduce((a, b) => a + b, 0) > 0">
           <div style="font-size:12px;margin-bottom:10px">{{$t('mealNutrients')}}:</div>
-          <DataTable :loading="false" :value="calculateMaleNutrients(meal.foods,units[0][0].gram)" style="width:100%;">
+          <DataTable :loading="false" :value="calculateMaleNutrients(meal.foods)" style="width:100%;">
             <Column field="energy" :header="$t('energy')">
               <template #body="{data,field}" >
                 <template v-if="data[field]<0">
@@ -184,7 +185,6 @@ import {useHint} from "~/composables/useHint";
 import {useFoods} from "~/composables/foods/useFoods";
 
 const {locale} = useI18n()
-
 const {
   onChangeFood,
   onAddFood,
@@ -195,7 +195,8 @@ const {
   calculateFoodNutrients,
   calculateMaleNutrients,
   isLoadingFoodData,
-  units
+  onChangePortion,
+  foodLabelGenerator
 } = useNutrients()
 
 const {getFoods, foods} = useFoods()

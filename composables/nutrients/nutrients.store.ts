@@ -15,13 +15,23 @@ export const useNutrientsStore = defineStore("nutrients", {
                     {
                         fdc_id:-1,
                         amount:100,
-                        nutrientsInProtein:{
+                        nutrientsIn100g:{
                             fiber: -1,
                             protein: -1,
                             sugar: -1,
                             carbohydrate: -1,
                             energy: -1
-                        }
+                        },
+                        portions:[
+                            {
+                                id: 0,
+                                gramWeight: 1,
+                                amount: 100,
+                                modifier: 'gram',
+                                label: 'gram',
+                            }
+                        ],
+                        selectedPortionId:0
                     }
                 ]
             }

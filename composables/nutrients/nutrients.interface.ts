@@ -1,10 +1,25 @@
 export interface IFood{
     fdc_id:number
     amount:number
-    nutrientsInProtein:INutrientsInProtein
+    nutrientsIn100g:INutrientsIn100g
+    portions:IPortion[]
+    selectedPortionId:number
 }
 
-export interface INutrientsInProtein{
+export interface IPortion{
+    id:number
+    gramWeight: number;
+    amount: number;
+    modifier: string;
+    label: string;
+    measureUnit?: IMeasureUnit;
+}
+export interface IMeasureUnit {
+    id: number;
+    name: string;
+    abbreviation: string;
+}
+export interface INutrientsIn100g{
     fiber: number;
     protein: number;
     sugar: number;

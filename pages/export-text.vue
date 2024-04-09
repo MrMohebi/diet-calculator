@@ -18,7 +18,7 @@
           <span>
             {{ foods.find(i => i.fdc_id == food.fdc_id)?.[`name_${locale}`] }}
           </span>
-          <span> ({{ numberWithCommas(food.amount) }} {{ $t('gram') }}) </span>
+          <span> [ {{ numberWithCommas(food.amount) }} {{ foodLabelGenerator(food.portions.find(i=>i.id == food.selectedPortionId)) }} ] </span>
           <span v-if="iFood !== meal.foods.length-1"> - </span>
         </span>
       </div>
@@ -54,7 +54,8 @@ import {useFoods} from "~/composables/foods/useFoods";
 const {getFoods, foods} = useFoods()
 const {
   meals,
-  totalNutrients
+  totalNutrients,
+  foodLabelGenerator
 } = useNutrients()
 
 const {requiredCalories, requiredProtein} = useTdee()
