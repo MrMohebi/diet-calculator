@@ -19,7 +19,7 @@ export const useTdee = () => {
 
     const requiredProtein = computed(():[number,number]=>{
         if(!!weight.value && weight.value > 0){
-            return [weight.value*1.2, weight.value*2.2]
+            return [Math.round(weight.value*1.2), Math.round(weight.value*2.2)]
         }
         return [-1, -1]
     })
