@@ -42,6 +42,7 @@ export default defineI18nConfig(() => ({
             enterBodyData:"Enter your Body data",
             addMeal:"Add new meal",
             addFood:"Add new food",
+            conversionFactor: "conversion factor",
 
         },
         fa: {
@@ -84,7 +85,7 @@ export default defineI18nConfig(() => ({
             enterBodyData:"اطلاعات بدنی خود را وارد کنید",
             addMeal:"افزودن وعده غذایی",
             addFood:"افزودن غذا",
-
+            conversionFactor: "ضریب تبدیل",
         }
     }
 }))

@@ -33,7 +33,10 @@
         <div v-else>{{ $t('unknown') }}</div>
       </div>
       <div class="row space-x-2">
-        <div>{{$t('dailyRequiredProteins')}}:</div>
+        <div>{{$t('dailyRequiredProteins')}}: </div>
+
+        <i v-tippy="`${$t('conversionFactor')}: 1.2 - 2.2`"  class="pi pi-question-circle" style="font-size: 1rem"></i>
+
         <template v-if="requiredProtein[0] >= 0">
           <div>{{numberWithCommas(requiredProtein[0]) }}</div>
           <div>g</div>
@@ -41,6 +44,7 @@
           <div>{{numberWithCommas(requiredProtein[1]) }}</div>
           <div>g</div>
         </template>
+
         <div v-else>{{ $t('unknown') }}</div>
       </div>
     </div>
@@ -54,6 +58,7 @@
 import Toast from 'primevue/toast';
 import {useTdee} from "~/composables/tdee/useTdee";
 import numberWithCommas from "~/utils/numberWithCommas";
+import Button from "primevue/button";
 
 const {gender, age, height, weight, getTdee, gymKC, tdee, requiredProtein, requiredCalories, resetTdee} = useTdee()
 </script>

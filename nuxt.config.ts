@@ -56,6 +56,7 @@ export default defineNuxtConfig({
     'primevue/resources/themes/aura-light-green/theme.css',
     'primeicons/primeicons.css',
     'animate.css',
+    'tippy.js/dist/tippy.css',
     join(currentDir, './assets/css/main.scss'),
   ],
   // @ts-ignore
