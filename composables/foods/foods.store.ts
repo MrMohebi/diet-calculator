@@ -8,6 +8,11 @@ export const useFoodsStore = defineStore("foods", {
     state: ():IFoodsStore=> ({
         foods:[
             {
+                fdc_id: -1,
+                name_en: "custom",
+                name_fa: "دلخواه"
+            },
+            {
                 fdc_id:174270,
                 name_en:"Soybeans, mature seeds",
                 name_fa:"سویا اجیلی",

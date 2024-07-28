@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; flex-direction: column; align-items: center;">
+  <div style="display: flex; flex-direction: column; align-items: center;" data-zzzz="ggggg">
     <template v-for="(meal, iMeal) in meals" :key="`meal_${iMeal}`">
       <Fieldset :toggleable="true" style="width: 100%;">
         <template #legend class="h-[70px]">
@@ -15,87 +15,156 @@
         </template>
 
         <div v-for="(food, iFood) in meal.foods" style="display: flex; flex-direction: column; align-items: center;justify-content: center; margin-bottom: 20px" :key="`food_${iFood}`">
-          <div style="display: flex; flex-direction: row; align-items: center;justify-content: center; width: 100%;; margin-bottom: 10px">
-            <Dropdown
-                style="width: 100%"
-                v-model="food.fdc_id"
-                :options="foods"
-                :optionLabel="`name_${locale}`"
-                :placeholder="$t('select')"
-                optionValue="fdc_id"
-                filter
-                class="w-full md:w-14rem"
-                @change="()=>onChangeFood(food.fdc_id, iMeal, iFood)"
-            />
-            <Dropdown
-                style="width: 120px"
-                v-model="food.selectedPortionId"
-                :options="food.portions"
-                :placeholder="$t('select')"
-                :optionLabel="foodLabelGenerator"
-                optionValue="id"
-                @change="()=>onChangePortion(iMeal, iFood)"
-            />
-            <InputNumber :input-style="{maxWidth: '50px'}" v-model="food.amount" :min="1" :invalid="!food.amount || food.amount<0"/>
-          </div>
+          <template v-if="food.fdc_id >= 0">
+            <div style="display: flex; flex-direction: row; align-items: center;justify-content: center; width: 100%;; margin-bottom: 10px">
+              <Dropdown
+                  style="width: 100%;max-width:200px"
+                  v-model="food.fdc_id"
+                  :options="foods"
+                  :optionLabel="`name_${locale}`"
+                  :placeholder="$t('select')"
+                  optionValue="fdc_id"
+                  filter
+                  class="w-full md:w-14rem"
+                  @change="()=>onChangeFood(food.fdc_id, iMeal, iFood)"
+              />
+              <Dropdown
+                  style="width: 120px"
+                  v-model="food.selectedPortionId"
+                  :options="food.portions"
+                  :placeholder="$t('select')"
+                  :optionLabel="foodLabelGenerator"
+                  optionValue="id"
+                  @change="()=>onChangePortion(iMeal, iFood)"
+              />
+              <InputNumber :input-style="{maxWidth: '50px'}" v-model="food.amount" :min="1" :invalid="!food.amount || food.amount<0"/>
+            </div>
+            <div style="width: 100%;display: flex; flex-direction: row; align-items: center;">
+              <InlineMessage style="width: 100%" severity="secondary">
+                <DataTable :loading="isLoadingFoodData[iMeal.toString()+iFood.toString()] ?? false" :value="calculateFoodNutrients(food)" style="width:100%;">
+                  <Column field="energy" :header="$t('energy')">
+                    <template #body="{data,field}" >
+                      <template v-if="data[field]<0">
+                        <span>{{$t('unknown')}}</span>
+                      </template>
+                      <template  v-else>
+                        <span>{{numberWithCommas(data[field])}}</span><span>Kcl</span>
+                      </template>
+                    </template>
+                  </Column>
+                  <Column field="protein" :header="$t('protein')">
+                    <template #body="{data,field}" >
+                      <template v-if="data[field]<0">
+                        <span>{{$t('unknown')}}</span>
+                      </template>
+                      <template  v-else>
+                        <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                      </template>
+                    </template>
+                  </Column>
+                  <Column field="carbohydrate" :header="$t('carbohydrate')">
+                    <template #body="{data,field}" >
+                      <template v-if="data[field]<0">
+                        <span>{{$t('unknown')}}</span>
+                      </template>
+                      <template  v-else>
+                        <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                      </template>
+                    </template>
+                  </Column>
+                  <Column field="sugar" :header="$t('sugar')">
+                    <template #body="{data,field}" >
+                      <template v-if="data[field]<0">
+                        <span>{{$t('unknown')}}</span>
+                      </template>
+                      <template  v-else>
+                        <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                      </template>
+                    </template>
+                  </Column>
+                  <Column field="fiber" :header="$t('fiber')">
+                    <template #body="{data,field}" >
+                      <template v-if="data[field]<0">
+                        <span>{{$t('unknown')}}</span>
+                      </template>
+                      <template  v-else>
+                        <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                      </template>
+                    </template>
+                  </Column>
+                </DataTable>
+              </InlineMessage>
+              <Button icon="pi pi-trash" severity="danger" text @click="()=>onRemoveFood(iMeal, iFood)" style="justify-content: start; width:20px;height: 25px; margin: 0 10px"/>
+            </div>
+          </template>
 
-          <div style="width: 100%;display: flex; flex-direction: row; align-items: center;">
-            <InlineMessage style="width: 100%" severity="secondary">
-              <DataTable :loading="isLoadingFoodData[iMeal.toString()+iFood.toString()] ?? false" :value="calculateFoodNutrients(food)" style="width:100%;">
-                <Column field="energy" :header="$t('energy')">
-                  <template #body="{data,field}" >
-                    <template v-if="data[field]<0">
-                      <span>{{$t('unknown')}}</span>
+          <template v-if="food.fdc_id == -1">
+            <div style="display: flex; flex-direction: row; align-items: center;justify-content: center; width: 100%;; margin-bottom: 10px">
+              <Dropdown
+                  style="width: 100%; max-width:125px"
+                  v-model="food.fdc_id"
+                  :options="foods"
+                  :optionLabel="`name_${locale}`"
+                  :placeholder="$t('select')"
+                  optionValue="fdc_id"
+                  filter
+                  class="w-full md:w-14rem"
+                  @change="()=>onChangeFood(food.fdc_id, iMeal, iFood)"
+              />
+              <InputText :input-style="{width: '100%'}" v-model="food.customName" :placeholder="$t('nameAndAmount')" />
+            </div>
+            <div style="width: 100%;display: flex; flex-direction: row; align-items: center;">
+              <InlineMessage style="width: 100%" severity="secondary">
+                <DataTable :loading="isLoadingFoodData[iMeal.toString()+iFood.toString()] ?? false" :value="calculateFoodNutrients(food)" style="width:100%;">
+                  <Column field="energy" :header="$t('energy')">
+                    <template #body="slotProps">
+                      <div class="center-content-row">
+                        <span>Kcl</span>
+                        <InputNumber min="0" :input-style="{maxWidth: '50px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.energy" />
+                      </div>
                     </template>
-                    <template  v-else>
-                      <span>{{numberWithCommas(data[field])}}</span><span>Kcl</span>
+                  </Column>
+                  <Column field="protein" :header="$t('protein')">
+                    <template #body="slotProps">
+                      <div class="center-content-row">
+                        <span>g</span>
+                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.protein" />
+                      </div>
                     </template>
-                  </template>
-                </Column>
-                <Column field="protein" :header="$t('protein')">
-                  <template #body="{data,field}" >
-                    <template v-if="data[field]<0">
-                      <span>{{$t('unknown')}}</span>
+                  </Column>
+                  <Column field="carbohydrate" :header="$t('carbohydrate')">
+                    <template #body="slotProps">
+                      <div class="center-content-row">
+                        <span>g</span>
+                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.carbohydrate" />
+                      </div>
                     </template>
-                    <template  v-else>
-                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
+                  </Column>
+                  <Column field="sugar" :header="$t('sugar')">
+                    <template #body="slotProps">
+                      <div class="center-content-row">
+                        <span>g</span>
+                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.sugar" />
+                      </div>
                     </template>
-                  </template>
-                </Column>
-                <Column field="carbohydrate" :header="$t('carbohydrate')">
-                  <template #body="{data,field}" >
-                    <template v-if="data[field]<0">
-                      <span>{{$t('unknown')}}</span>
+                  </Column>
+                  <Column field="fiber" :header="$t('fiber')">
+                    <template #body="slotProps">
+                      <div class="center-content-row">
+                        <span>g</span>
+                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.fiber" />
+                      </div>
                     </template>
-                    <template  v-else>
-                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
-                    </template>
-                  </template>
-                </Column>
-                <Column field="sugar" :header="$t('sugar')">
-                  <template #body="{data,field}" >
-                    <template v-if="data[field]<0">
-                      <span>{{$t('unknown')}}</span>
-                    </template>
-                    <template  v-else>
-                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
-                    </template>
-                  </template>
-                </Column>
-                <Column field="fiber" :header="$t('fiber')">
-                  <template #body="{data,field}" >
-                    <template v-if="data[field]<0">
-                      <span>{{$t('unknown')}}</span>
-                    </template>
-                    <template  v-else>
-                      <span>{{numberWithCommas(data[field])}}</span><span>g</span>
-                    </template>
-                  </template>
-                </Column>
-              </DataTable>
-            </InlineMessage>
-            <Button icon="pi pi-trash" severity="danger" text @click="()=>onRemoveFood(iMeal, iFood)" style="justify-content: start; width:20px;height: 25px; margin: 0 10px"/>
-          </div>
+                  </Column>
+                </DataTable>
+              </InlineMessage>
+              <Button icon="pi pi-trash" severity="danger" text @click="()=>onRemoveFood(iMeal, iFood)" style="justify-content: start; width:20px;height: 25px; margin: 0 10px"/>
+            </div>
+
+          </template>
+
+
+
           <Divider />
         </div>
 

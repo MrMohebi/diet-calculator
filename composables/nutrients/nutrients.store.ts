@@ -15,6 +15,7 @@ export const useNutrientsStore = defineStore("nutrients", {
                     {
                         fdc_id:-1,
                         amount:100,
+                        customName:"",
                         nutrientsIn100g:{
                             fiber: -1,
                             protein: -1,

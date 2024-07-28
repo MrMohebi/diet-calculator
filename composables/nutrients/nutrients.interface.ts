@@ -1,6 +1,7 @@
 export interface IFood{
     fdc_id:number
     amount:number
+    customName?:string
     nutrientsIn100g:INutrientsIn100g
     portions:IPortion[]
     selectedPortionId:number

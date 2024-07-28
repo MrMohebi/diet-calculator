@@ -43,6 +43,7 @@ export default defineI18nConfig(() => ({
             addMeal:"Add new meal",
             addFood:"Add new food",
             conversionFactor: "conversion factor",
+            nameAndAmount: "name and amount",
 
         },
         fa: {
@@ -86,6 +87,7 @@ export default defineI18nConfig(() => ({
             addMeal:"افزودن وعده غذایی",
             addFood:"افزودن غذا",
             conversionFactor: "ضریب تبدیل",
+            nameAndAmount: "نام و مقدار",
         }
     }
 }))

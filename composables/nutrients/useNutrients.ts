@@ -15,8 +15,9 @@ export const useNutrients = () => {
     const {meals} = storeToRefs(useNutrientsStore())
 
     const DEFAULT_FOOD:IFood = {
-        fdc_id:-1,
+        fdc_id:0,
         amount:100,
+        customName:"",
         portions:[
             {
                 id: 0,
@@ -116,12 +117,18 @@ export const useNutrients = () => {
         // @ts-ignore
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = true
 
-        const res = await $fetch<IFcdRes>(`/api/food/${fcd_id}`)
-        const data = fcdAdaptor(res)
+        if(fcd_id>0){
+            const res = await $fetch<IFcdRes>(`/api/food/${fcd_id}`)
+            const data = fcdAdaptor(res)
 
-        meals.value[indexMeal].foods[indexFood].nutrientsIn100g = data.nutrientsIn100g
-        meals.value[indexMeal].foods[indexFood].portions = data.portions
-        meals.value[indexMeal].foods[indexFood].selectedPortionId = 0
+            meals.value[indexMeal].foods[indexFood].nutrientsIn100g = data.nutrientsIn100g
+            meals.value[indexMeal].foods[indexFood].portions = data.portions
+            meals.value[indexMeal].foods[indexFood].selectedPortionId = 0
+        }else {
+
+
+
+        }
 
         // @ts-ignore
         isLoadingFoodData[indexMeal.toString()+indexFood.toString()] = false

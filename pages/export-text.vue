@@ -15,11 +15,17 @@
       <div v-for="(meal, index) in meals">
         {{ meal.mealName }} =>
         <span v-for="(food, iFood) in meal.foods">
-          <span>
+          <template v-if="food.fdc_id==-1">
+            {{food.customName}}
+          </template>
+          <template v-else>
+            <span>
             {{ foods.find(i => i.fdc_id == food.fdc_id)?.[`name_${locale}`] }}
-          </span>
-          <span> [ {{ numberWithCommas(food.amount) }} {{ foodLabelGenerator(food.portions.find(i=>i.id == food.selectedPortionId)) }} ] </span>
+            </span>
+            <span> [ {{ numberWithCommas(food.amount) }} {{ foodLabelGenerator(food.portions.find(i=>i.id == food.selectedPortionId)) }} ] </span>
+          </template>
           <span v-if="iFood !== meal.foods.length-1"> - </span>
+
         </span>
       </div>
 
