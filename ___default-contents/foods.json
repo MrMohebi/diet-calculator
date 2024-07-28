@@ -1,5 +1,10 @@
 [
   {
+    "fdc_id": -1,
+    "name_en": "custom",
+    "name_fa": "دلخواه"
+  },
+  {
     "fdc_id": 746771,
     "name_en": "Orange",
     "name_fa": "پرتقال"
