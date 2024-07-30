@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   runtimeConfig: {
-    FDC_API_KEY: 'ZK28BIF4kIQ79MdkTs4Cau17wf7hLKow2TRaUgfs',
+    FDC_API_KEY: process.env.FDC_API_KEY,
 
     public: {
       FOODS_LIST_URL: "https://raw.githubusercontent.com/MrMohebi/diet-calculator/master/___default-contents/foods.json",
