@@ -44,7 +44,17 @@ export default defineI18nConfig(() => ({
             addFood:"Add new food",
             conversionFactor: "conversion factor",
             nameAndAmount: "name and amount",
-
+            sharePlan: "share plan",
+            moreInfo: "more info",
+            save: "save",
+            title: "title",
+            description: "description",
+            author: "author",
+            meals: "meals",
+            forced:"required",
+            savedSuccessfully:"saved successfully.",
+            copyLink:"copy link",
+            pleasFillRequiredFields:"Pleas fill required fields!",
         },
         fa: {
             toEdit: 'ویرایش کنید',
@@ -88,6 +98,17 @@ export default defineI18nConfig(() => ({
             addFood:"افزودن غذا",
             conversionFactor: "ضریب تبدیل",
             nameAndAmount: "نام و مقدار",
+            sharePlan: "اشتراک گذاری برنامه",
+            moreInfo: "اطلاعات بیشتر",
+            save: "ذخیره",
+            title: "عنوان",
+            description: "توضیحات",
+            author: "نویسنده",
+            meals: "وعده ها",
+            forced:"اجباری",
+            savedSuccessfully:"با موفقیت ذخیره شد.",
+            copyLink:"کپی کردن لینک",
+            pleasFillRequiredFields:"لطفا فیلد های مورد نیاز را پر کنید!",
         }
     }
 }))

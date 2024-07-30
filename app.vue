@@ -8,10 +8,14 @@
 import {useNutrientsStore} from "~/composables/nutrients/nutrients.store";
 import {MEALS_LS, TDEE_LS} from "~/consts/keys";
 import {useTdeeStore} from "~/composables/tdee/tdee.store";
+import {useDBStore} from "~/composables/db/db.store";
+
 
 const { locale, setLocaleCookie } = useI18n()
 const nutrientsStore = useNutrientsStore()
 const tdeeStore = useTdeeStore()
+
+const {initSupabase} = useDBStore()
 
 const rtlNeededLanguages = ['fa']
 
@@ -30,6 +34,7 @@ tdeeStore.$subscribe((mutation, state) => {
 onMounted(()=>{
   nutrientsStore.loadFromLS()
   tdeeStore.loadFromLS()
+  initSupabase()
 })
 
 watch(locale,(value)=>{

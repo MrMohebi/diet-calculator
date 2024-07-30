@@ -57,6 +57,7 @@ export default defineNuxtConfig({
     'primeicons/primeicons.css',
     'animate.css',
     'tippy.js/dist/tippy.css',
+    'shareon/css',
     join(currentDir, './assets/css/main.scss'),
   ],
   // @ts-ignore

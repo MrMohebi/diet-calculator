@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <table>
       <tr>
         <td>{{$t('energy')}}: </td>
@@ -117,18 +118,52 @@
       </tr>
     </table>
 
-    <Button :label="$t('getExport')" @click="router.push('/export-text')"/>
+    <div class="row" style="justify-content: space-between;">
+      <Button :label="$t('getExport')" @click="router.push('/export-text')"/>
+      <Button :label="$t('sharePlan')" severity="info" @click="planInfoDialog = true"/>
+    </div>
+
+    <Dialog v-model:visible="planInfoDialog" modal :header="$t('sharePlan')" :style="{ width: '25rem' }">
+      <div class="space-y-4" style="width: 100%">
+        <div class="center-content-row" style="justify-content: space-between;">
+          <label for="title" class="font-semibold w-24">{{$t('title')}}({{$t('forced')}}): </label>
+          <InputText required v-model="title" id="title" class="flex-auto" autocomplete="off" :invalid="title == null || title.length < 3"/>
+        </div>
+        <div class="center-content-row" style="justify-content: space-between;">
+          <label for="author" class="font-semibold w-24">{{$t('author')}}({{$t('forced')}}): </label>
+          <InputText required v-model="author" id="author" class="flex-auto" autocomplete="off" :invalid="author == null || author.length < 3"/>
+        </div>
+        <div class="center-content-row" style="justify-content: space-between;">
+          <label for="description" class="font-semibold w-24">{{$t('description')}}: </label>
+          <Textarea v-model="details" id="description" class="flex-auto" autocomplete="off" />
+        </div>
+        <Button :loading="sharePlanLoading" type="button" :label="$t('save')" @click="sharePlan" :disabled="title.length < 3 || author.length < 3 "></Button>
+      </div>
+    </Dialog>
+
+    <Dialog v-model:visible="copyLinkDialog" modal :header="$t('copyLink')" :style="{ width: '25rem' }">
+      <div v-if="savedPlanId > 0" class="center-content">
+        <shareon :text=" currentUrl + '?planId=' + savedPlanId"/>
+      </div>
+    </Dialog>
+
 
   </div>
 </template>
 
 <script setup lang="ts">
+
+import Dialog from 'primevue/dialog';
 import {useNutrients} from "~/composables/nutrients/useNutrients";
 import numberWithCommas from "~/utils/numberWithCommas";
 import {useTdee} from "~/composables/tdee/useTdee";
 import {useRouter} from "#app";
+import {usePlans} from "~/composables/plans/usePlans";
+
 
 const router = useRouter()
+
+
 
 const {
   totalNutrients,
@@ -138,6 +173,17 @@ const {
   sugarMeter,
   fiberMeter,
 } = useNutrients()
+
+const {
+  planInfoDialog,
+  sharePlan,
+  title,
+  author,
+  details,
+  sharePlanLoading,
+  copyLinkDialog,
+  savedPlanId
+} = usePlans()
 
 const {requiredCalories, requiredProtein} = useTdee()
 
@@ -152,6 +198,10 @@ const excessedProteinPercentage = computed(()=> Math.round(
         (totalNutrients.value.protein - requiredProtein.value[1]) / requiredProtein.value[1]
     ) * 100
 ))
+
+const currentUrl = computed(()=> {
+  return window.location.href
+})
 
 </script>
 

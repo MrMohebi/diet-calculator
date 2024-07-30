@@ -13,6 +13,11 @@ export const useFoodsStore = defineStore("foods", {
                 name_fa: "دلخواه"
             },
             {
+                fdc_id:2684441,
+                name_en:"Fish, salmon",
+                name_fa:"ماهی سالمون",
+            },
+            {
                 fdc_id:174270,
                 name_en:"Soybeans, mature seeds",
                 name_fa:"سویا اجیلی",

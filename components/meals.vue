@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; flex-direction: column; align-items: center;" data-zzzz="ggggg">
+  <div style="display: flex; flex-direction: column; align-items: center;">
     <template v-for="(meal, iMeal) in meals" :key="`meal_${iMeal}`">
       <Fieldset :toggleable="true" style="width: 100%;">
         <template #legend class="h-[70px]">
@@ -18,7 +18,8 @@
           <template v-if="food.fdc_id >= 0">
             <div style="display: flex; flex-direction: row; align-items: center;justify-content: center; width: 100%;; margin-bottom: 10px">
               <Dropdown
-                  style="width: 100%;max-width:200px"
+                  style="width: 100%;"
+                  :style="{maxWidth: $isMobile ? '180px':'100%'}"
                   v-model="food.fdc_id"
                   :options="foods"
                   :optionLabel="`name_${locale}`"
@@ -101,7 +102,8 @@
           <template v-if="food.fdc_id == -1">
             <div style="display: flex; flex-direction: row; align-items: center;justify-content: center; width: 100%;; margin-bottom: 10px">
               <Dropdown
-                  style="width: 100%; max-width:125px"
+                  style="width: 100%"
+                  :style="{maxWidth: $isMobile ? '125px':'100%'}"
                   v-model="food.fdc_id"
                   :options="foods"
                   :optionLabel="`name_${locale}`"
@@ -120,7 +122,7 @@
                     <template #body="slotProps">
                       <div class="center-content-row">
                         <span>Kcl</span>
-                        <InputNumber min="0" :input-style="{maxWidth: '50px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.energy" />
+                        <InputNumber :min="0" :input-style="{maxWidth: '50px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.energy" />
                       </div>
                     </template>
                   </Column>
@@ -128,7 +130,7 @@
                     <template #body="slotProps">
                       <div class="center-content-row">
                         <span>g</span>
-                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.protein" />
+                        <InputNumber :min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.protein" />
                       </div>
                     </template>
                   </Column>
@@ -136,7 +138,7 @@
                     <template #body="slotProps">
                       <div class="center-content-row">
                         <span>g</span>
-                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.carbohydrate" />
+                        <InputNumber :min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.carbohydrate" />
                       </div>
                     </template>
                   </Column>
@@ -144,7 +146,7 @@
                     <template #body="slotProps">
                       <div class="center-content-row">
                         <span>g</span>
-                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.sugar" />
+                        <InputNumber :min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.sugar" />
                       </div>
                     </template>
                   </Column>
@@ -152,7 +154,7 @@
                     <template #body="slotProps">
                       <div class="center-content-row">
                         <span>g</span>
-                        <InputNumber min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.fiber" />
+                        <InputNumber :min="0" :input-style="{maxWidth: '30px', height:'20px', padding: '2px'}" v-model="food.nutrientsIn100g.fiber" />
                       </div>
                     </template>
                   </Column>
@@ -253,6 +255,7 @@ import {useNutrients} from "~/composables/nutrients/useNutrients";
 import {useHint} from "~/composables/useHint";
 import {useFoods} from "~/composables/foods/useFoods";
 
+const { $isMobile } = useNuxtApp()
 const {locale} = useI18n()
 const {
   onChangeFood,
@@ -281,6 +284,10 @@ onMounted(()=>{
 </script>
 
 <style scoped lang="scss">
+:deep(.p-fieldset){
+  border: 3px solid #d9d9d9;
+}
+
 :deep(.p-dropdown-filter){
   transform: translate(-30px, 0);
   background: red;
