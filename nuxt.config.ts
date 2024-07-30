@@ -12,7 +12,10 @@ export default defineNuxtConfig({
 
     public: {
       FOODS_LIST_URL: "https://raw.githubusercontent.com/MrMohebi/diet-calculator/master/___default-contents/foods.json",
-      PLANS_LIST_URL: "https://raw.githubusercontent.com/MrMohebi/diet-calculator/master/___default-contents/plans.json"
+      PLANS_LIST_URL: "https://raw.githubusercontent.com/MrMohebi/diet-calculator/master/___default-contents/plans.json",
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_KEY: process.env.SUPABASE_KEY,
+      SUPABASE_DB: 'plans',
     }
   },
   app: {

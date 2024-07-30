@@ -3,7 +3,7 @@ import {useNutrients} from "~/composables/nutrients/useNutrients";
 import { useToast } from "primevue/usetoast";
 import type {IPlan} from "~/composables/plans/plans.interface";
 export const usePlans = () => {
-  const {supabase} = storeToRefs(useDBStore())
+  const {supabase, dBName} = storeToRefs(useDBStore())
   const { locale,t } = useI18n()
   const {meals,} = useNutrients()
   const toast = useToast();
@@ -26,7 +26,7 @@ export const usePlans = () => {
     }
 
     sharePlanLoading.value = true
-    const { error,data } = await supabase.value.from('plans').insert({
+    const { error,data } = await supabase.value.from(dBName.value).insert({
         title:title.value,
         lang:locale.value,
         author:author.value,
