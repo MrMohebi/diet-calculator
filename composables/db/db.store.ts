@@ -12,7 +12,7 @@ export const useDBStore = defineStore("db", {
         }
     },
     actions: {
-        async initSupabase()
+        initSupabase()
         {
             if(this.supabase == null){
                 const config = useRuntimeConfig()

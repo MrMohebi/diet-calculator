@@ -55,6 +55,8 @@ export default defineI18nConfig(() => ({
             savedSuccessfully:"saved successfully.",
             copyLink:"copy link",
             pleasFillRequiredFields:"Pleas fill required fields!",
+            loadedPlan:"loaded plan",
+
         },
         fa: {
             toEdit: 'ویرایش کنید',
@@ -109,6 +111,7 @@ export default defineI18nConfig(() => ({
             savedSuccessfully:"با موفقیت ذخیره شد.",
             copyLink:"کپی کردن لینک",
             pleasFillRequiredFields:"لطفا فیلد های مورد نیاز را پر کنید!",
+            loadedPlan:"برنامه بارگذاری شده",
         }
     }
 }))

@@ -1,9 +1,14 @@
+import clonedeep from 'lodash.clonedeep'
 import {useDBStore} from "~/composables/db/db.store";
 import {useNutrients} from "~/composables/nutrients/useNutrients";
 import { useToast } from "primevue/usetoast";
 import type {IPlan} from "~/composables/plans/plans.interface";
+import {usePlansStore} from "~/composables/plans/plans.store";
+import {useNutrientsStore} from "~/composables/nutrients/nutrients.store";
 export const usePlans = () => {
   const {supabase, dBName} = storeToRefs(useDBStore())
+  const {selectedPlan} = storeToRefs(usePlansStore())
+  const nutrientsStore = useNutrientsStore()
   const { locale,t } = useI18n()
   const {meals,} = useNutrients()
   const toast = useToast();
@@ -20,7 +25,13 @@ export const usePlans = () => {
   const sharePlanLoading = ref(false)
 
   const sharePlan = async () =>{
-    if(!supabase.value || title.value.length < 3 || author.value.length < 3 || meals.value.length < 2){
+    if( supabase.value == null) {
+      await useDBStore().initSupabase()
+      await sharePlan()
+      return;
+    }
+
+    if(title.value.length < 3 || author.value.length < 3 || meals.value.length < 2){
       toast.add({ severity: 'error', summary: t('pleasFillRequiredFields'),  life: 3000 });
       return false
     }
@@ -47,6 +58,20 @@ export const usePlans = () => {
     }
   }
 
+  const getPlan = async (id:number): Promise<void> => {
+    if( supabase.value == null) {
+      await useDBStore().initSupabase()
+      await getPlan(id)
+      return;
+    }
+
+    const {data, error} = await supabase.value.from(dBName.value).select().eq('id',id)
+    if(data !== null && error == null && data.length > 0){
+      selectedPlan.value = clonedeep(data[0])
+      nutrientsStore.loadFromPlan(selectedPlan.value.meals)
+    }
+  }
+
 
   return{
     planInfoDialog,
@@ -56,6 +81,8 @@ export const usePlans = () => {
     details,
     sharePlanLoading,
     copyLinkDialog,
-    savedPlanId
+    savedPlanId,
+    getPlan,
+    selectedPlan
   }
 }

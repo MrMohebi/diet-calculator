@@ -15,7 +15,6 @@ const { locale, setLocaleCookie } = useI18n()
 const nutrientsStore = useNutrientsStore()
 const tdeeStore = useTdeeStore()
 
-const {initSupabase} = useDBStore()
 
 const rtlNeededLanguages = ['fa']
 
@@ -26,7 +25,9 @@ useHead({
 })
 
 nutrientsStore.$subscribe((mutation, state) => {
-  localStorage.setItem(MEALS_LS, JSON.stringify(state))
+  if(!mutation.events.target.hasOwnProperty('meals')){
+    localStorage.setItem(MEALS_LS, JSON.stringify(state))
+  }
 })
 tdeeStore.$subscribe((mutation, state) => {
   localStorage.setItem(TDEE_LS, JSON.stringify(state))
@@ -34,7 +35,6 @@ tdeeStore.$subscribe((mutation, state) => {
 onMounted(()=>{
   nutrientsStore.loadFromLS()
   tdeeStore.loadFromLS()
-  initSupabase()
 })
 
 watch(locale,(value)=>{

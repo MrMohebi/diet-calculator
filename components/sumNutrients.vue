@@ -200,7 +200,7 @@ const excessedProteinPercentage = computed(()=> Math.round(
 ))
 
 const currentUrl = computed(()=> {
-  return window.location.href
+  return window.location.href.split("?")[0]
 })
 
 </script>

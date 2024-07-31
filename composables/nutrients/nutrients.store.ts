@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type {IMeal} from "~/composables/nutrients/nutrients.interface";
 import {MEALS_LS} from "~/consts/keys";
+import clonedeep from 'lodash.clonedeep'
 
 export interface INutrientsStore {
     meals:IMeal[]
@@ -36,7 +37,8 @@ export const useNutrientsStore = defineStore("nutrients", {
                     }
                 ]
             }
-        ]
+        ],
+        tempLoaded:false
     }),
     getters: {},
     actions: {
@@ -51,8 +53,11 @@ export const useNutrientsStore = defineStore("nutrients", {
                     return
                 }
 
-                this.meals = structuredClone(savedDataParsed.meals)
+                this.meals = clonedeep(savedDataParsed.meals)
             }
+        },
+        loadFromPlan(meals:IMeal[]){
+            this.meals = clonedeep(meals)
         }
     },
 });
