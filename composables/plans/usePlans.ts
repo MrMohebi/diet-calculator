@@ -43,7 +43,7 @@ export const usePlans = () => {
         author:author.value,
         details:details.value,
         meals:meals.value
-      } as IPlan).select<IPlan>()
+      } as IPlan).select()
     sharePlanLoading.value = false
 
 
