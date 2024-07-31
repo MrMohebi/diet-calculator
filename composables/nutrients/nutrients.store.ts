@@ -38,7 +38,6 @@ export const useNutrientsStore = defineStore("nutrients", {
                 ]
             }
         ],
-        tempLoaded:false
     }),
     getters: {},
     actions: {
