@@ -5,7 +5,9 @@
         <Dropdown
             style="width: 120px;"
             v-model="gender"
-            :options="[$t('male'), $t('female')]"
+            :options="[{label:$t('male'), value:'male'},{label:$t('female'), value:'female'}]"
+            optionLabel="label"
+            optionValue="value"
             :placeholder="$t('gender')"
             variant="filled"
         />
