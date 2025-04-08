@@ -5,7 +5,7 @@ Create ur own diet by calculating nutrition and ur BMR.
 
 Datasource: [FoodData Central](https://fdc.nal.usda.gov/)
 
-Served at [dc.mmmohebi.ir](https://dc.mmmohebi.ir/)
+Served at [dc.m17i.xyz](https://dc.m17i.xyz/)
 
 
 ## Screenshots
