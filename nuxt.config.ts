@@ -75,4 +75,9 @@ export default defineNuxtConfig({
       include: ["qs"],
     },
   },
+  nitro: {
+    prerender: {
+      autoSubfolderIndex: false
+    }
+  }
 })
